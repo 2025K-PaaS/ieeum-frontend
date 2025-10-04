@@ -13,9 +13,9 @@ const Wrapper = styled.div`
     position: relative;
     margin: 0 auto;
     padding: 0 20px;
-    min-height: 100vh;
+    height: 100vh;
+    overflow-y: auto;
     min-width: 393px;
     max-width: 420px;
     background-color: #FFFFFF;
-    overflow-y: auto;
 `

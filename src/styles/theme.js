@@ -14,7 +14,7 @@ const fontGenerator = (
 
 export const theme = {
     colors: {
-        mainColor: "#007BFF",
+        mainColor: "#0B9454",
     },
     
     fonts: {
