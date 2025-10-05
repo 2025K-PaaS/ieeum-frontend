@@ -15,6 +15,12 @@ const fontGenerator = (
 export const theme = {
     colors: {
         mainColor: "#0B9454",
+        yellowGreenColor: "#AEDC40",
+        backColor: "#FCFCFF",
+        grayColor1: "#8E8E93",
+        grayColor2: "#636366",
+        grayColor3: "#3A3A3C",
+        blackColor: "#1C1C1E",
     },
     
     fonts: {
