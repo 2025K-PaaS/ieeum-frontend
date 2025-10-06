@@ -1,0 +1,85 @@
+import React from 'react';
+import styled from 'styled-components';
+import { NotCompletedBadge } from './StateBadge';
+import { CompletedBadge } from './StateBadge';
+
+export const Resource = ({ name, type, material, image, state }) => {
+    return (
+        <Wrapper>
+            <InfoWrapper>
+                <Name>{name}</Name>
+                <CategoryWrapper>
+                    <Category>
+                        <CategoryTitle>종류 |</CategoryTitle>
+                        <CategoryDesc>{type}</CategoryDesc>
+                    </Category>
+                    <Category>
+                        <CategoryTitle>재질 |</CategoryTitle>
+                        <CategoryDesc>{material}</CategoryDesc>
+                    </Category>
+                </CategoryWrapper>
+                {state==="notCompleted" ? (
+                    <NotCompletedBadge />
+                ) : (
+                    <CompletedBadge />
+                )}
+            </InfoWrapper>
+            <ResourceImg src={image}/>
+        </Wrapper>
+    )
+}
+
+const Wrapper = styled.div`
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 0 20px 15px 20px;
+    border-bottom: 1px solid #E6E6E9;
+    padding-bottom: 15px;
+`
+
+const InfoWrapper = styled.div`
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+`
+
+const Name = styled.h1`
+    font-size: 15px;
+    font-family: ${({ theme }) =>
+    theme.fonts.PretendardBold["font-family"]};
+    margin-bottom: 15px;
+`
+
+const CategoryWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 9px;
+`
+
+const Category = styled.div`
+    display: flex;
+`
+
+const CategoryTitle = styled.p`
+    font-size: 15px;
+    font-family: ${({ theme }) =>
+    theme.fonts.PretendardMedium["font-family"]};
+    color: ${({theme}) => theme.colors.grayColor2};
+`
+
+const CategoryDesc = styled.p`
+    font-size: 15px;
+    font-family: ${({ theme }) =>
+    theme.fonts.PretendardMedium["font-family"]};
+    color: ${({theme}) => theme.colors.grayColor3};
+    margin-left: 2px;
+`
+
+const ResourceImg = styled.img`
+    height: 113px;
+    width: 106px;
+    object-fit: cover;
+    border-radius: 15px;
+`
