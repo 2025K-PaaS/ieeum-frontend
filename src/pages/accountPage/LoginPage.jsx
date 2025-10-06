@@ -41,7 +41,7 @@ const LoginPage = () => {
             </S.InputWrappers>
             <S.ButtonWrapper>
                 <GreenButton text="로그인" onClick={handleLogin} />
-                <GrayButton text="회원가입" />
+                <GrayButton text="회원가입" onClick={() => navigate('/signup')} />
             </S.ButtonWrapper>
         </S.Wrapper>
     )
