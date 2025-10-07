@@ -4,6 +4,7 @@ import Logo from '../../assets/icons/logo-white.svg';
 import Alarm from '../../assets/icons/alarm.svg';
 import { Banner } from '../../components/Banner';
 import { RegistrationButton } from '../../components/RegistrationButton';
+import { Navbar } from '../../components/Navbar';
 import { Resource } from '../../components/Resource';
 import { resourceData } from './../../constant/resourceData';
 
@@ -14,7 +15,7 @@ const MainPage = () => {
     const [point, setPoint] = useState(12000);
 
     return (
-        <>
+        <S.Wrapper>
             <S.Banner>
                 <S.Header>
                     <S.LogoWrapper>
@@ -46,7 +47,8 @@ const MainPage = () => {
                     state={resource.state}
                 />
             ))}
-        </>
+            <Navbar />
+        </S.Wrapper>
     )
 }
 

@@ -85,6 +85,10 @@ input:focus {
     outline: none;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 @font-face {
     font-family: "Pretendard-Thin";
     src: url("/fonts/Pretendard-Thin.otf") format("opentype");

@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+    position: relative;
+    padding-bottom: 77px;
+`
+
 export const Banner = styled.div`
     background-color: ${({theme}) => theme.colors.mainColor};
     padding: 10px 20px 0 20px;
