@@ -16,14 +16,14 @@ export const Navbar = () => {
 
     const navPages = [
         { path: '/main', text: '홈', icon: Home, iconClicked: HomeClicked },
-        { path: '/register', text: '자원 등록', icon: Camera, iconClicked: CameraClicked }, 
+        { path: '/registration', text: '자원 등록', icon: Camera, iconClicked: CameraClicked }, 
         { path: '/matching', text: '자원 매칭', icon: List, iconClicked: ListClicked }, 
         { path: '/mypage', text: '마이페이지', icon: Mypage, iconClicked: MypageClicked }, 
     ];
 
     return (
         <Wrapper>
-            <PageWraper>
+            <PageWrapper>
                 {navPages.map((page) => {
                     const isActive = currentPath === page.path;
                     return (
@@ -33,7 +33,7 @@ export const Navbar = () => {
                         </Page>
                     )
                 })}
-            </PageWraper>
+            </PageWrapper>
         </Wrapper>
     )
 }
@@ -55,10 +55,11 @@ const Wrapper = styled.div`
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
 `
 
-const PageWraper = styled.div`
-    width: 290px;
+const PageWrapper = styled.div`
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    margin: 0 50px;
 `
 
 const Page = styled(Link)`
@@ -67,6 +68,7 @@ const Page = styled(Link)`
     justify-content: center;
     flex-direction: column;
     gap: 5px;
+    width: 44px;
 `
 
 const PageIcon = styled.img`

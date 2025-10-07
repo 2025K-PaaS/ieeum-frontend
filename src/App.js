@@ -6,6 +6,7 @@ import LoginPage from './pages/accountPage/LoginPage';
 import SignupPage from './pages/accountPage/SignupPage';
 import SignupPage2 from './pages/accountPage/SignupPage2';
 import MainPage from './pages/mainPage/MainPage';
+import RegistrationListPage from './pages/registrationPage/RegistrationListPage';
 
 const App = () => {
     return (
@@ -17,6 +18,7 @@ const App = () => {
                     <Route path='/signup' element={<SignupPage />} />
                     <Route path='/signup2' element={<SignupPage2 />} />
                     <Route path='/main' element={<MainPage />} />
+                    <Route path='/registration' element={<RegistrationListPage />} />
                 </Routes>
             </Layout>
         </BrowserRouter>
