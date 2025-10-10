@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import Plus from '../assets/icons/plus.svg';
 
 export const PlusButton = () => {
+    const naviate = useNavigate();
+
     const [isClicked, setIsClicked] = useState(false);
     
     const handleToggle = () => {
@@ -13,7 +16,7 @@ export const PlusButton = () => {
         <Wrapper isClicked={isClicked}>
             {isClicked && (
                 <>
-                    <TextButton>자원 등록</TextButton>
+                    <TextButton onClick={() => naviate('/registration/camera')}>자원 등록</TextButton>
                     <Line />
                     <TextButton>요청 등록</TextButton>
                 </>
