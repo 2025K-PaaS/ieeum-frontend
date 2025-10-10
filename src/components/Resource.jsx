@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NotCompletedBadge } from './StateBadge';
-import { CompletedBadge } from './StateBadge';
+import { NotCompletedBadge, CompletedBadge, ProgressBadge, SuccessBadge, FailBadge } from './StateBadge';
 
 export const Resource = ({ name, type, material, image, state }) => {
     return (
@@ -20,9 +19,13 @@ export const Resource = ({ name, type, material, image, state }) => {
                 </CategoryWrapper>
                 {state==="notCompleted" ? (
                     <NotCompletedBadge />
-                ) : (
+                ) : state==="completed" ? (
                     <CompletedBadge />
-                )}
+                ) : state==="progress" ? (
+                    <ProgressBadge />
+                ) : state==="success" ? (
+                    <SuccessBadge />
+                ) : <FailBadge />}
             </InfoWrapper>
             <ResourceImg src={image}/>
         </Wrapper>

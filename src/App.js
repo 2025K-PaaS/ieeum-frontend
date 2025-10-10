@@ -6,6 +6,7 @@ import LoginPage from './pages/accountPage/LoginPage';
 import SignupPage from './pages/accountPage/SignupPage';
 import SignupPage2 from './pages/accountPage/SignupPage2';
 import MainPage from './pages/mainPage/MainPage';
+import AlarmPage from './pages/mainPage/AlarmPage';
 import RegistrationListPage from './pages/registrationPage/RegistrationListPage';
 import RegistrationCameraPage from './pages/registrationPage/RegistrationCameraPage';
 import RegistrationCreatePage from './pages/registrationPage/RegistrationCreatePage';
@@ -20,6 +21,7 @@ const App = () => {
                     <Route path='/signup' element={<SignupPage />} />
                     <Route path='/signup2' element={<SignupPage2 />} />
                     <Route path='/main' element={<MainPage />} />
+                    <Route path='/alarm' element={<AlarmPage />} />
                     <Route path='/registration' element={<RegistrationListPage />} />
                     <Route path='/registration/camera' element={<RegistrationCameraPage />} />
                     <Route path='/registration/create' element={<RegistrationCreatePage />} />

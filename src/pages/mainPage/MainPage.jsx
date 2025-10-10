@@ -7,8 +7,11 @@ import { RegistrationButton } from '../../components/RegistrationButton';
 import { Navbar } from '../../components/Navbar';
 import { Resource } from '../../components/Resource';
 import { resourceData } from './../../constant/resourceData';
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
+    const navigate = useNavigate();
+
     const [nickname, setNickname] = useState('지구 지킴이');
     const [level, setLevel] = useState(2);
     const [badgeTitle, setBadgeTitle] = useState('새싹 탐험가');
@@ -22,7 +25,7 @@ const MainPage = () => {
                         <S.Logo src={Logo} alt="이음 로고 이미지"/>
                         <S.HeaderTitle>이음</S.HeaderTitle>
                     </S.LogoWrapper>
-                    <S.AlarmWrapper>
+                    <S.AlarmWrapper onClick={() => navigate('/alarm')}>
                         <S.Alarm src={Alarm} alt="알림 아이콘" />
                     </S.AlarmWrapper>
                 </S.Header>

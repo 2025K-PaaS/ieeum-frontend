@@ -8,10 +8,35 @@ export const NotCompletedBadge = () => {
         </Wrapper>
     )
 }
+
 export const CompletedBadge = () => {
     return (
         <Wrapper color='#AEDC40'>
             매칭 완료
+        </Wrapper>
+    )
+}
+
+export const ProgressBadge = () => {
+    return (
+        <Wrapper color='#AEDC40'>
+            매칭 신청이 왔어요!
+        </Wrapper>
+    )
+}
+
+export const SuccessBadge = () => {
+    return (
+        <Wrapper color='#0B9454'>
+            자원 매칭에 성공했어요
+        </Wrapper>
+    )
+}
+
+export const FailBadge = () => {
+    return (
+        <Wrapper color='#FF8C57'>
+            자원 매칭에 실패했어요
         </Wrapper>
     )
 }
