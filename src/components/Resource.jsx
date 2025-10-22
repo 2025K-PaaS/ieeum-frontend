@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { NotCompletedBadge, CompletedBadge, ProgressBadge, SuccessBadge, FailBadge } from './StateBadge';
 
-export const Resource = ({ name, type, material, image, state }) => {
+export const Resource = ({ name, type, material, image, state, onClick=null }) => {
     return (
-        <Wrapper>
+        <Wrapper onClick={onClick}>
             <InfoWrapper>
                 <Name>{name}</Name>
                 <CategoryWrapper>
@@ -32,13 +32,14 @@ export const Resource = ({ name, type, material, image, state }) => {
     )
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.button`
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     margin: 0 20px 15px 20px;
     border-bottom: 1px solid #E6E6E9;
     padding-bottom: 15px;
+    width: -webkit-fill-available;
 `
 
 const InfoWrapper = styled.div`

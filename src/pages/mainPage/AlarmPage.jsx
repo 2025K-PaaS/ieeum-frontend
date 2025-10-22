@@ -3,8 +3,11 @@ import * as S from './AlarmPage.styled';
 import { TextHeader } from '../../components/TextHeader';
 import { Resource } from '../../components/Resource';
 import { resourceData } from '../../constant/resourceData';
+import { useNavigate } from 'react-router-dom';
 
 const AlarmPage = () => {
+    const navigate = useNavigate();
+
     return (
         <>
             <TextHeader text="알림" />
@@ -17,6 +20,7 @@ const AlarmPage = () => {
                         material={resource.material}
                         image={resource.image}
                         state={resource.state}
+                        onClick={() => navigate('/matchingapplication')}
                     />
                 ))}
             </S.ResourceWrapper>

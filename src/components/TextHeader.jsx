@@ -26,7 +26,7 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
     position: fixed;
-    background-color: #FFFFFF;
+    background-color: ${({theme}) => theme.colors.backColor};
 `
 
 const ButtonWrapper = styled.button`
