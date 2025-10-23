@@ -1,15 +1,28 @@
-import React from 'react';
-import * as S from './RegistrationListPage.styled';
+import React, { useEffect, useState } from 'react';
+import * as S from './ResourceListPage.styled';
 import { LogoHeader } from '../../components/LogoHeader';
 import { Resource } from '../../components/Resource';
 import { Navbar } from '../../components/Navbar';
 import { PlusButton } from '../../components/PlusButton';
-import { resourceData } from './../../constant/resourceData';
+import { resourceData } from '../../constant/resourceData';
+import { useLocation } from 'react-router-dom';
 
-const RegistrationListPage = () => {
+const ResourceListPage = () => {
+    const location = useLocation();
+    const [page, setPage] = useState("");
+
+    useEffect(() => {
+        const loc = location.pathname;
+        if (loc==="/registration") {
+            setPage("자원 등록 리스트")
+        } else if (loc==="/request") {
+            setPage("자원 요청 리스트")
+        }
+    }, [location])
+
     return (
         <S.Wrapper>
-            <LogoHeader text="자원 등록 리스트"/>
+            <LogoHeader text={page}/>
             <S.ResourceWrapper>
                 {resourceData.map((resource, index) => (
                     <Resource
@@ -28,4 +41,4 @@ const RegistrationListPage = () => {
     )
 }
 
-export default RegistrationListPage
+export default ResourceListPage

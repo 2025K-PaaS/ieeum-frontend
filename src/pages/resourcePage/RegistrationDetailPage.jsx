@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import * as S from './RegistrationDetailPage.styled';
-import { TextHeader } from './../../components/TextHeader';
-import { Navbar } from './../../components/Navbar';
-import { Bottomsheet } from './../../components/Bottomsheet';
-import { GreenButton } from './../../components/GreenButton';
+import { TextHeader } from '../../components/TextHeader';
+import { Navbar } from '../../components/Navbar';
+import { Bottomsheet } from '../../components/Bottomsheet';
+import { GreenButton } from '../../components/GreenButton';
 import Jeans from '../../assets/images/jeans.png';
 import Plus from '../../assets/icons/plus-gray.svg';
 import Minus from '../../assets/icons/minus.svg';

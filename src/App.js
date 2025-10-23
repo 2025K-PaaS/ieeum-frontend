@@ -8,11 +8,10 @@ import SignupPage2 from './pages/accountPage/SignupPage2';
 import MainPage from './pages/mainPage/MainPage';
 import AlarmPage from './pages/mainPage/AlarmPage';
 import MatchingApplicationPage from './pages/mainPage/MatchingApplicationPage';
-import RegistrationListPage from './pages/registrationPage/RegistrationListPage';
-import RegistrationCameraPage from './pages/registrationPage/RegistrationCameraPage';
-import RegistrationCreatePage from './pages/registrationPage/RegistrationCreatePage';
-import RegistrationDetailPage from './pages/registrationPage/RegistrationDetailPage';
-import MatchingListPage from './pages/mainPage/MatchingListPage';
+import ResourceListPage from './pages/resourcePage/ResourceListPage';
+import RegistrationCameraPage from './pages/resourcePage/RegistrationCameraPage';
+import RegistrationCreatePage from './pages/resourcePage/RegistrationCreatePage';
+import RegistrationDetailPage from './pages/resourcePage/RegistrationDetailPage';
 
 const App = () => {
     return (
@@ -26,11 +25,11 @@ const App = () => {
                     <Route path='/main' element={<MainPage />} />
                     <Route path='/alarm' element={<AlarmPage />} />
                     <Route path='/matchingapplication' element={<MatchingApplicationPage />} />
-                    <Route path='/registration' element={<RegistrationListPage />} />
+                    <Route path='/registration' element={<ResourceListPage />} />
                     <Route path='/registration/camera' element={<RegistrationCameraPage />} />
                     <Route path='/registration/create' element={<RegistrationCreatePage />} />
                     <Route path='/registration/detail' element={<RegistrationDetailPage />} />
-                    <Route path='/matching' element={<MatchingListPage />} />
+                    <Route path='/request' element={<ResourceListPage />} />
                 </Routes>
             </Layout>
         </BrowserRouter>

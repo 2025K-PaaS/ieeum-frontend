@@ -3,7 +3,7 @@ import * as S from './RegistrationCreatePage.styled';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Bottomsheet } from '../../components/Bottomsheet';
-import { GreenButton } from './../../components/GreenButton';
+import { GreenButton } from '../../components/GreenButton';
 import Plus from '../../assets/icons/plus-gray.svg';
 import Minus from '../../assets/icons/minus.svg';
 

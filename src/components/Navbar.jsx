@@ -22,7 +22,7 @@ export const Navbar = () => {
     const navPages = [
         { path: '/main', text: '홈', icon: Home, iconClicked: HomeClicked },
         { path: '/registration', text: '자원 등록', icon: Camera, iconClicked: CameraClicked, activePaths: registrationPaths }, 
-        { path: '/matching', text: '자원 매칭', icon: List, iconClicked: ListClicked }, 
+        { path: '/request', text: '자원 매칭', icon: List, iconClicked: ListClicked }, 
         { path: '/mypage', text: '마이페이지', icon: Mypage, iconClicked: MypageClicked }, 
     ];
 
