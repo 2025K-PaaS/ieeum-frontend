@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import Plus from '../assets/icons/plus-white.svg';
 
 export const PlusButton = () => {
-    const naviate = useNavigate();
+    const navigate = useNavigate();
 
     const [isClicked, setIsClicked] = useState(false);
     
@@ -16,9 +16,9 @@ export const PlusButton = () => {
         <Wrapper isClicked={isClicked}>
             {isClicked && (
                 <>
-                    <TextButton onClick={() => naviate('/registration/camera')}>자원 등록</TextButton>
+                    <TextButton onClick={() => navigate('/registration/camera')}>자원 등록</TextButton>
                     <Line />
-                    <TextButton>요청 등록</TextButton>
+                    <TextButton onClick={() => navigate('/request/create')}>요청 등록</TextButton>
                 </>
             )}
             <PlusButtonWrapper onClick={handleToggle}>

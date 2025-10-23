@@ -18,5 +18,5 @@ const Wrapper = styled.div`
     min-width: 393px;
     max-width: 420px;
     background-color: ${({theme}) => theme.colors.backColor};
-    /* border: 1px solid black; */
+    border: 1px solid black;
 `
