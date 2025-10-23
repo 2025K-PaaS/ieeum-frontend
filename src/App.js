@@ -12,6 +12,7 @@ import RegistrationListPage from './pages/registrationPage/RegistrationListPage'
 import RegistrationCameraPage from './pages/registrationPage/RegistrationCameraPage';
 import RegistrationCreatePage from './pages/registrationPage/RegistrationCreatePage';
 import RegistrationDetailPage from './pages/registrationPage/RegistrationDetailPage';
+import MatchingListPage from './pages/mainPage/MatchingListPage';
 
 const App = () => {
     return (
@@ -29,6 +30,7 @@ const App = () => {
                     <Route path='/registration/camera' element={<RegistrationCameraPage />} />
                     <Route path='/registration/create' element={<RegistrationCreatePage />} />
                     <Route path='/registration/detail' element={<RegistrationDetailPage />} />
+                    <Route path='/matching' element={<MatchingListPage />} />
                 </Routes>
             </Layout>
         </BrowserRouter>
