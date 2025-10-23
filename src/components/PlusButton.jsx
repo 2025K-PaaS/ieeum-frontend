@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import Plus from '../assets/icons/plus.svg';
+import Plus from '../assets/icons/plus-white.svg';
 
 export const PlusButton = () => {
     const naviate = useNavigate();
