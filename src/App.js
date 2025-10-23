@@ -11,6 +11,7 @@ import MatchingApplicationPage from './pages/mainPage/MatchingApplicationPage';
 import RegistrationListPage from './pages/registrationPage/RegistrationListPage';
 import RegistrationCameraPage from './pages/registrationPage/RegistrationCameraPage';
 import RegistrationCreatePage from './pages/registrationPage/RegistrationCreatePage';
+import RegistrationDetailPage from './pages/registrationPage/RegistrationDetailPage';
 
 const App = () => {
     return (
@@ -27,6 +28,7 @@ const App = () => {
                     <Route path='/registration' element={<RegistrationListPage />} />
                     <Route path='/registration/camera' element={<RegistrationCameraPage />} />
                     <Route path='/registration/create' element={<RegistrationCreatePage />} />
+                    <Route path='/registration/detail' element={<RegistrationDetailPage />} />
                 </Routes>
             </Layout>
         </BrowserRouter>

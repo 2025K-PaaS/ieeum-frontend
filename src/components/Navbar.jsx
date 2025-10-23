@@ -14,9 +14,14 @@ export const Navbar = () => {
     const location = useLocation();
     const currentPath = location.pathname;
 
+    const registrationPaths = [
+        '/registration',
+        '/registration/detail',
+    ]
+
     const navPages = [
         { path: '/main', text: '홈', icon: Home, iconClicked: HomeClicked },
-        { path: '/registration', text: '자원 등록', icon: Camera, iconClicked: CameraClicked }, 
+        { path: '/registration', text: '자원 등록', icon: Camera, iconClicked: CameraClicked, activePaths: registrationPaths }, 
         { path: '/matching', text: '자원 매칭', icon: List, iconClicked: ListClicked }, 
         { path: '/mypage', text: '마이페이지', icon: Mypage, iconClicked: MypageClicked }, 
     ];
@@ -25,7 +30,12 @@ export const Navbar = () => {
         <Wrapper>
             <PageWrapper>
                 {navPages.map((page) => {
-                    const isActive = currentPath === page.path;
+                    let isActive;
+                    if (page.activePaths) {
+                        isActive = page.activePaths.includes(currentPath);
+                    } else {
+                        isActive = currentPath === page.path;
+                    }
                     return (
                         <Page to={page.path}>
                             <PageIcon src={isActive ? page.iconClicked : page.icon} alt={`${page.text}아이콘`} />
@@ -68,7 +78,7 @@ const Page = styled(Link)`
     justify-content: center;
     flex-direction: column;
     gap: 5px;
-    width: 44px;
+    /* width: 44px; */
 `
 
 const PageIcon = styled.img`

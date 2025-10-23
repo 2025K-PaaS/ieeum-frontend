@@ -16,6 +16,7 @@ export const theme = {
     colors: {
         mainColor: "#0B9454",
         yellowGreenColor: "#AEDC40",
+        pointColor: "#FF8C57",
         backColor: "#FCFCFF",
         grayColor1: "#8E8E93",
         grayColor2: "#636366",

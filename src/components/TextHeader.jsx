@@ -3,15 +3,20 @@ import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Before from '../assets/icons/before.svg';
 
-export const TextHeader = ({ text }) => {
+export const TextHeader = ({ text, buttonText, onClick }) => {
     const navigate = useNavigate();
 
     return (
         <Wrapper>
-            <ButtonWrapper onClick={() => navigate(-1)}>
+            <BackButton onClick={() => navigate(-1)}>
                 <img src={Before} alt="이전 버튼 이미지" />
-            </ButtonWrapper>
+            </BackButton>
             <Title>{text}</Title>
+            {buttonText && (
+                <ButtonWrapper onClick={onClick}>
+                    {buttonText}
+                </ButtonWrapper>
+            )}
         </Wrapper>
     )
 }
@@ -24,12 +29,11 @@ const Wrapper = styled.div`
     padding: 0 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
     position: fixed;
     background-color: ${({theme}) => theme.colors.backColor};
 `
 
-const ButtonWrapper = styled.button`
+const BackButton = styled.button`
     position: absolute;
     left: 20px;
 `
@@ -39,4 +43,22 @@ const Title = styled.h1`
     color: ${({theme}) => theme.colors.blackColor};
     font-family: ${({ theme }) =>
     theme.fonts.PretendardSemiBold["font-family"]};
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+`
+
+const ButtonWrapper = styled.button`
+    color: #FFFFFF;
+    background-color: ${({theme}) => theme.colors.pointColor};
+    border-radius: 100px;
+    font-size: 13px;
+    font-family: ${({ theme }) =>
+    theme.fonts.PretendardSemiBold["font-family"]};
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 20px;
 `

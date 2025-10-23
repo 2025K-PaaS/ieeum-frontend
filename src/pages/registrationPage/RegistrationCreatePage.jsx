@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import * as S from './RegistrationCreatePage.styled';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Bottomsheet } from '../../components/Bottomsheet';
 import { GreenButton } from './../../components/GreenButton';
 import Plus from '../../assets/icons/plus-gray.svg';
@@ -8,8 +9,9 @@ import Minus from '../../assets/icons/minus.svg';
 
 const RegistrationCreatePage = () => {
     const { state } = useLocation();
+    const navigate = useNavigate();
 
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
     const [type, setType] = useState('의류 (하의)');
     const [material, setMaterial] = useState('데님');
     const [value, setValue] = useState('2,000 P');
@@ -25,7 +27,7 @@ const RegistrationCreatePage = () => {
     }
 
     const handleMinus = () => {
-        if (count > 0) {
+        if (count > 1) {
             setCount(count-1);
         }
     }
@@ -48,7 +50,7 @@ const RegistrationCreatePage = () => {
     return (
         <S.Wrapper>
             <S.RegistrationImage src={state.image} alt="자원 이미지" />
-            <Bottomsheet>
+            <Bottomsheet isOpen={true} overlayColor="rgba(0, 0, 0, 0.5)">
                 <S.BottomSheetWrapper>
                     <S.Title>오래된 청바지</S.Title>
                     <S.SubTitle>수량</S.SubTitle>
@@ -113,7 +115,7 @@ const RegistrationCreatePage = () => {
                         </S.Detail>
                     </S.DetailWrapper>
                     <S.ButtonWrapper>
-                        <GreenButton text="자원 등록" />
+                        <GreenButton text="자원 등록" onClick={() => navigate('/registration/detail')}/>
                     </S.ButtonWrapper>
                 </S.BottomSheetWrapper>
             </Bottomsheet>
