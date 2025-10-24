@@ -7,7 +7,7 @@ import { RegistrationButton } from '../../components/RegistrationButton';
 import { Navbar } from '../../components/Navbar';
 import { Resource } from '../../components/Resource';
 import { resourceData } from './../../constant/resourceData';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
     const navigate = useNavigate();
@@ -48,6 +48,7 @@ const MainPage = () => {
                     material={resource.material}
                     image={resource.image}
                     state={resource.state}
+                    onClick={() => navigate('/resource/detail', {state: true})}
                 />
             ))}
             <Navbar />

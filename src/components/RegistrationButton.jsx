@@ -1,16 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import Earth from '../assets/images/earth.png';
 import Next from '../assets/icons/next-white.svg';
 
 export const RegistrationButton = () => {
+    const navigate = useNavigate();
+
     return (
         <Wrapper>
             <DescWrapper>
                 <Desc>내 물건의 새로운<br />가치를 찾아보세요!</Desc>
                 <EarthImg src={Earth} alt="지구 이미지"/>
             </DescWrapper>
-            <ButtonWrapper>
+            <ButtonWrapper onClick={() => navigate('/registration/camera')}>
                 <ButtonText>자원 등록</ButtonText>
                 <NextImg src={Next} alt="다음 버튼 이미지"/>
             </ButtonWrapper>

@@ -6,12 +6,28 @@ export const Wrapper = styled.div`
 
 export const Container = styled.div`
     padding: 0 20px;
+    margin-bottom: 15px;
 `
 
 export const Title = styled.h1`
     font-size: 20px;
     font-family: ${({ theme }) =>
     theme.fonts.PretendardSemiBold["font-family"]};
+    margin: 15px 20px;
+`
+
+export const ResourceImage = styled.img`
+    width: -webkit-fill-available;;
+    height: 260px;
+    border-radius: 15px;
+    object-fit: cover;
+    margin: 0 20px;
+`
+
+export const SectionDivider = styled.div`
+    background-color: #E6E6E9;
+    height: 1px;
+    width: 100%;
     margin: 15px 0;
 `
 
@@ -60,10 +76,15 @@ export const Divider = styled.div`
 `
 
 export const Line = styled.div`
-    margin: 15px 0;
+    margin-bottom: 15px;
     width: 100%;
     height: 12px;
     background-color: #F1F1F5;
+`
+
+export const MatchingContainer = styled.div`
+    padding: 0 20px;
+    margin-bottom: ${({isNavbarShown}) => isNavbarShown ? '85px' : '15px'};
 `
 
 export const Title2 = styled.h2`
@@ -80,4 +101,12 @@ export const DescWrapper2 = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
+`
+
+export const TwoButtonWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+    margin: 15px 0;
 `

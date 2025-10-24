@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './MatchingApplicationPage.styled';
 import { TextHeader } from './../../components/TextHeader';
+import { GreenButton } from '../../components/GreenButton';
+import { GrayButton } from './../../components/GrayButton';
+import { Navbar } from '../../components/Navbar';
+import { useLocation } from 'react-router-dom';
+import Jeans from '../../assets/images/jeans.png';
 
 const MatchingApplicationPage = () => {
+    const { state } = useLocation();
+    console.log('state.isButtonShow', state.isButtonShow);
+    const [isButtonShow, setIsButtonShow] = useState(state.isButtonShow);
+
     return (
         <>
             <TextHeader text="매칭 신청"/>
             <S.Wrapper>
+                <S.Title>오래된 청바지</S.Title>
+                {!isButtonShow && (
+                    <>
+                        <S.ResourceImage src={Jeans}/>
+                        <S.SectionDivider />
+                    </>
+                )}
                 <S.Container>
-                    <S.Title>오래된 청바지</S.Title>
                     <S.SubTitle>상세 페이지</S.SubTitle>
                     <S.DescWrapper>
                         <S.CategoryWarpper>
@@ -33,12 +48,12 @@ const MatchingApplicationPage = () => {
                         <S.Divider />
                         <S.CategoryWarpper>
                             <S.Category>설명 |</S.Category>
-                            <S.Value>사용감은 있으나 찢어지거나 오염된 곳은 없습니다. 세탁 후 보관 중입니다.</S.Value>
+                            <S.Value>사용감은 있으나 찢어지거나 오염된 곳은 없습니다. 세탁 후 보관 중입니다.사용감은 있으나 찢어지거나 오염된 곳은 없습니다. 세탁 후 보관 중입니다.</S.Value>
                         </S.CategoryWarpper>
                     </S.DescWrapper>
                 </S.Container>
                 <S.Line />
-                <S.Container>
+                <S.MatchingContainer isNavbarShown={!isButtonShow}>
                     <S.Title2>매칭 정보</S.Title2>
                     <S.SubTitle>배송지</S.SubTitle>
                     <S.DescWrapper2>
@@ -55,8 +70,22 @@ const MatchingApplicationPage = () => {
                             <S.Value>010-1234-5678</S.Value>
                         </S.CategoryWarpper>
                     </S.DescWrapper2>
-                </S.Container>
+                    {isButtonShow && (
+                        <S.TwoButtonWrapper>
+                            <GrayButton 
+                                text="거절"
+                                onClick={() => {}}
+                                width={130}
+                            />
+                            <GreenButton 
+                                text="수락"
+                                onClick={() => {}}
+                            />
+                        </S.TwoButtonWrapper>
+                    )}
+                </S.MatchingContainer>
             </S.Wrapper>
+            {!isButtonShow && <Navbar />}
         </>
     )
 }

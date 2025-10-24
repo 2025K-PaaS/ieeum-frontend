@@ -5,10 +5,11 @@ import { Resource } from '../../components/Resource';
 import { Navbar } from '../../components/Navbar';
 import { PlusButton } from '../../components/PlusButton';
 import { resourceData } from '../../constant/resourceData';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ResourceListPage = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const [page, setPage] = useState("");
 
     useEffect(() => {
@@ -32,6 +33,7 @@ const ResourceListPage = () => {
                         material={resource.material}
                         image={resource.image}
                         state={resource.state}
+                        onClick={() => navigate('/resource/detail', {state: page==="자원 등록 리스트"})}
                     />
                 ))}
             </S.ResourceWrapper>

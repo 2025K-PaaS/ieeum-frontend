@@ -115,7 +115,10 @@ const RegistrationCreatePage = () => {
                         </S.Detail>
                     </S.DetailWrapper>
                     <S.ButtonWrapper>
-                        <GreenButton text="자원 등록" onClick={() => navigate('/registration/detail')}/>
+                        <GreenButton 
+                            text="자원 등록" 
+                            onClick={() => navigate('/resource/detail', {state: true})}
+                        />
                     </S.ButtonWrapper>
                 </S.BottomSheetWrapper>
             </Bottomsheet>

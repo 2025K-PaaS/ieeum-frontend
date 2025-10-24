@@ -21,7 +21,8 @@ export const Navbar = () => {
 
     const requestPaths = [
         '/request',
-        '/request/create'
+        '/request/create',
+        '/matchingapplication'
     ]
 
     const navPages = [

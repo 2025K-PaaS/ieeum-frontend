@@ -145,3 +145,62 @@ export const BottomsheetValue = styled.p`
 export const ButtonWrapper = styled.div`
     margin: 25px 0 50px 0;
 `
+
+export const RequestHeader = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #E9E9E9;
+`
+
+export const RequestHeaderLeft = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+export const RequestTitle = styled.h3`
+    font-size: 15px;
+    color: ${({theme}) => theme.colors.grayColor3};
+    font-family: ${({ theme }) =>
+    theme.fonts.PretendardBold["font-family"]};
+    margin-bottom: 10px;
+`
+
+export const RequestHeaderRowWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-top: 5px;
+`
+
+export const RequestHeaderValue = styled.p`
+    font-size: 15px;
+    color: ${({theme}) => theme.colors.grayColor3};
+    font-family: ${({ theme }) =>
+    theme.fonts.PretendardMedium["font-family"]};
+`
+
+export const ResourceImage = styled.img`
+    width: 113px;
+    height: 106px;
+    object-fit: cover;
+    border-radius: 15px;
+`
+
+export const MatchingSubTitle = styled.h3`
+    font-size: 15px;
+    color: ${({theme}) => theme.colors.grayColor1};
+    font-family: ${({ theme }) =>
+    theme.fonts.PretendardBold["font-family"]};
+    margin: 13px 0 5px 0;
+`
+
+export const TwoButtonWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+    margin: 35px 0;
+`
