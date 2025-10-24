@@ -14,6 +14,7 @@ import RegistrationCreatePage from './pages/resourcePage/RegistrationCreatePage'
 import RegistrationDetailPage from './pages/resourcePage/RegistrationDetailPage';
 import RequestCreatePage from './pages/resourcePage/RequestCreatePage';
 import MyPage from './pages/mainPage/MyPage';
+import PointPage from './pages/mainPage/PointPage';
 
 const App = () => {
     return (
@@ -34,6 +35,7 @@ const App = () => {
                     <Route path='/request' element={<ResourceListPage />} />
                     <Route path='/request/create' element={<RequestCreatePage />} />
                     <Route path='/mypage' element={<MyPage />} />
+                    <Route path='/point' element={<PointPage />} />
                 </Routes>
             </Layout>
         </BrowserRouter>

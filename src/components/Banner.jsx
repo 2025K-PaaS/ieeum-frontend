@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import Sprout from '../assets/images/sprout.png';
 import Badge from '../assets/icons/badge.svg';
 import Next from '../assets/icons/next-black.svg';
 
 export const Banner = ({ nickname, level, badgeTitle, point, page }) => {
+    const navigate = useNavigate();
+
     return (
         <Wrapper>
             <Plant src={Sprout}/>
@@ -23,7 +26,7 @@ export const Banner = ({ nickname, level, badgeTitle, point, page }) => {
                 <PointText>포인트</PointText>
                 <Line />
                 <PointAmount>{point.toLocaleString()}P</PointAmount>
-                <NextWrapper>
+                <NextWrapper onClick={() => navigate('/point')}>
                     <NextImg src={Next} alt="다음 버튼 이미지"/>
                 </NextWrapper>
             </PointWrapper>
