@@ -13,6 +13,7 @@ import RegistrationCameraPage from './pages/resourcePage/RegistrationCameraPage'
 import RegistrationCreatePage from './pages/resourcePage/RegistrationCreatePage';
 import RegistrationDetailPage from './pages/resourcePage/RegistrationDetailPage';
 import RequestCreatePage from './pages/resourcePage/RequestCreatePage';
+import MyPage from './pages/mainPage/MyPage';
 
 const App = () => {
     return (
@@ -32,6 +33,7 @@ const App = () => {
                     <Route path='/registration/detail' element={<RegistrationDetailPage />} />
                     <Route path='/request' element={<ResourceListPage />} />
                     <Route path='/request/create' element={<RequestCreatePage />} />
+                    <Route path='/mypage' element={<MyPage />} />
                 </Routes>
             </Layout>
         </BrowserRouter>
