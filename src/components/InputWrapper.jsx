@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 export const InputWrapper = ({ title, desc, value, onChange, height }) => {
     return (
-        <Wrapper onChange={onChange}>
+        <Wrapper>
             <TitleWrappr>
                 <Title>{title}</Title>
                 <Desc>{desc}</Desc>
             </TitleWrappr>
-            <Input value={value} height={height}/>
+            <Input value={value} height={height} onChange={onChange}/>
         </Wrapper>
     )
 }
