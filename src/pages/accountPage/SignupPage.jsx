@@ -13,7 +13,7 @@ const SignupPage = () => {
 
     const handleSignup = () => {
         if (id && password) {
-            navigate('/signup2');
+            navigate('/signup2', {state: {id, password}});
         } else {
             alert('아이디와 비밀번호를 모두 입력해주세요.');
         }

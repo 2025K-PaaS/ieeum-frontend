@@ -5,19 +5,57 @@ import Logo from '../../assets/icons/logo-green.svg';
 import { GrayButton } from '../../components/GrayButton';
 import { GreenButton } from '../../components/GreenButton';
 import { InputWrapper } from '../../components/InputWrapper';
+import { useLocation } from 'react-router-dom';
+import axiosInstance from './../../apis/axiosInstance';
 
 const SignupPage2 = () => {
+    const { state } = useLocation();
+    const [id, setId] = useState(state.id);
+    const [password, setPassword] = useState(state.password);
     const [name, setName] = useState('');
     const [nickname, setNickname] = useState('');
     const [number, setNumber] = useState('');
     const [destination, setDestination] = useState('');
     const navigate = useNavigate();
 
-    const handleSignup = () => {
+    const handleSignup = async () => {
         if (name && nickname && number && destination) {
-            navigate('/main');
+            try {
+                const response = await axiosInstance.post('/auth/signup', {
+                    username: id,
+                    password,
+                    name,
+                    phone: number,
+                    nickname,
+                    address: destination
+                });
+                console.log('회원가입 성공', response);
+                handleLogin();
+            } catch(error) {
+                if (error.response.data.detail[0].msg) {
+                    alert(error.response.data.detail[0].msg);
+                } else if (error.response.data.detail) {
+                    alert(error.response.data.detail);
+                }
+                navigate('/signup');
+            }
         } else {
             alert('이름, 닉네임, 전화번호, 배송지를 모두 입력해주세요.');
+        }
+    }
+
+    const handleLogin = async () => {
+        try {
+            const response = await axiosInstance.post('/auth/login', {
+                username: id,
+                password,
+            });
+            console.log('로그인 성공', response);
+            localStorage.setItem('accessToken', response.data.access_token);
+            navigate('/main');
+        } catch(error) {
+            navigate('/signup');
+            console.log(error.response);
         }
     }
 
