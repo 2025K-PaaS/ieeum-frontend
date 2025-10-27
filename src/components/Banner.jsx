@@ -1,12 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Sprout from '../assets/images/sprout.png';
 import Badge from '../assets/icons/badge.svg';
 import Next from '../assets/icons/next-black.svg';
+import axiosInstance from './../apis/axiosInstance';
 
-export const Banner = ({ nickname, level, badgeTitle, point, page }) => {
+export const Banner = ({ page }) => {
     const navigate = useNavigate();
+    
+    const [nickname, setNickname] = useState('지구 지킴이');
+    const [level, setLevel] = useState(2);
+    const [badgeTitle, setBadgeTitle] = useState('새싹 탐험가');
+    const [point, setPoint] = useState(12000);
+
+    const handleNickname = async () => {
+        try {
+            const response = await axiosInstance.get('/auth/me');
+            console.log('사용자 닉네임 조회', response.data);
+            setNickname(response.data.nickname);
+        } catch(error) {
+            console.log('사용자 닉네임 조회 실패', error.response);
+        }
+    }
+
+    const handlePoint = async () => {
+        try {
+            const response = await axiosInstance.get('/points/me');
+            console.log('포인트 조회', response.data);
+            setLevel(response.data.level);
+            setBadgeTitle(response.data.title);
+            setPoint(response.data.lifetime_earned);
+        } catch(error) {
+            console.log('포인트 조회 실패', error.response);
+        }
+    }
+
+    useEffect(() => {
+        handleNickname();
+        handlePoint();
+    }, [])
 
     return (
         <Wrapper>

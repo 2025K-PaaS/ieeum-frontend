@@ -10,10 +10,6 @@ import Logo from '../../assets/icons/logo-white.svg';
 const MyPage = () => {
     const navigate = useNavigate();
 
-    const [nickname, setNickname] = useState('지구 지킴이');
-    const [level, setLevel] = useState(2);
-    const [badgeTitle, setBadgeTitle] = useState('새싹 탐험가');
-    const [point, setPoint] = useState(12000);
     const [activeTab, setActiveTab] = useState('공급자');
 
     return (
@@ -25,13 +21,7 @@ const MyPage = () => {
                         <S.HeaderTitle>이음</S.HeaderTitle>
                     </S.LogoWrapper>
                 </S.Header>
-                <Banner
-                    nickname={nickname}
-                    level={level}
-                    badgeTitle={badgeTitle}
-                    point={point}
-                    page="mypage"
-                />
+                <Banner page="mypage" />
             </S.Banner>
             <S.ActivityWrapper>
                 <S.ActivityTitle>활동 내역</S.ActivityTitle>

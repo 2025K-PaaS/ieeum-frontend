@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './PointPage.styled';
 import { TextHeader } from './../../components/TextHeader';
 import { pointData } from './../../constant/pointData';
+import axiosInstance from './../../apis/axiosInstance';
 
 const PointPage = () => {
+    const [currentPoint, setCurrentPoint] = useState(0);
+    const [totalPoint, setTotalPoint] = useState(0);
+
+    const handlePoint = async () => {
+        try {
+            const response = await axiosInstance.get('/points/me');
+            console.log('포인트 조회', response.data);
+            setCurrentPoint(response.data.balance);
+            setTotalPoint(response.data.lifetime_earned);
+        } catch(error) {
+            console.log('포인트 조회 실패', error.response);
+        }
+    }
+
+    useEffect(() => {
+        handlePoint();
+    }, [])
+
     return (
         <>
             <TextHeader text="포인트 내역" />
@@ -11,11 +30,11 @@ const PointPage = () => {
                 <S.TotalWrapper>
                     <S.TotalRow>
                         <S.TotalTitle>현재 포인트 |</S.TotalTitle>
-                        <S.TotalValue>3,000P</S.TotalValue>
+                        <S.TotalValue>{currentPoint.toLocaleString()}P</S.TotalValue>
                     </S.TotalRow>
                     <S.TotalRow>
                         <S.TotalTitle>누적 포인트 |</S.TotalTitle>
-                        <S.TotalValue>12,000P</S.TotalValue>
+                        <S.TotalValue>{totalPoint.toLocaleString()}P</S.TotalValue>
                     </S.TotalRow>
                 </S.TotalWrapper>
                 <S.PointWrapper>

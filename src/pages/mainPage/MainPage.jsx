@@ -12,11 +12,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const MainPage = () => {
     const navigate = useNavigate();
 
-    const [nickname, setNickname] = useState('지구 지킴이');
-    const [level, setLevel] = useState(2);
-    const [badgeTitle, setBadgeTitle] = useState('새싹 탐험가');
-    const [point, setPoint] = useState(12000);
-
     return (
         <S.Wrapper>
             <S.Banner>
@@ -29,13 +24,7 @@ const MainPage = () => {
                         <S.Alarm src={Alarm} alt="알림 아이콘" />
                     </S.AlarmWrapper>
                 </S.Header>
-                <Banner 
-                    nickname={nickname}
-                    level={level}
-                    badgeTitle={badgeTitle}
-                    point={point}
-                    page="home"
-                />
+                <Banner  page="home" />
             </S.Banner>
             <RegistrationButton />
             <S.Line />
