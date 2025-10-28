@@ -17,11 +17,13 @@ export const Navbar = () => {
     const registrationPaths = [
         '/registration',
         '/registration/detail',
+        '/registration/:resource_id',
     ]
 
     const requestPaths = [
         '/request',
         '/request/create',
+        '/request/:resource_id',
         '/matchingapplication'
     ]
 
@@ -32,13 +34,28 @@ export const Navbar = () => {
         { path: '/mypage', text: '마이페이지', icon: Mypage, iconClicked: MypageClicked }, 
     ];
 
+    const matchesPathPattern = (pathPattern, currentPath) => {
+        if (pathPattern === currentPath) return true;
+
+        if (pathPattern.includes(':')) {
+            const regexPath = pathPattern.replace(/:\w+/g, '([^/]+)');
+            const regex = new RegExp(`^${regexPath}$`);
+            
+            return regex.test(currentPath);
+        }
+        
+        return false;
+    }
+
     return (
         <Wrapper>
             <PageWrapper>
                 {navPages.map((page) => {
                     let isActive;
                     if (page.activePaths) {
-                        isActive = page.activePaths.includes(currentPath);
+                        isActive = page.activePaths.some(pattern => 
+                            matchesPathPattern(pattern, currentPath)
+                        );
                     } else {
                         isActive = currentPath === page.path;
                     }

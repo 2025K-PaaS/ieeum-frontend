@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as S from './ResourceDetailPage.styled';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { TextHeader } from '../../components/TextHeader';
 import { Navbar } from '../../components/Navbar';
 import { Bottomsheet } from '../../components/Bottomsheet';
@@ -14,6 +14,7 @@ const ResourceDetailPage = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
     console.log('state', state);
+    const { resource_id } = useParams();
     
     const [isOpen, setIsOpen] = useState(false);
     const [isAutoMatch, setIsAutoMatch] = useState(state.isAutoMatch);
@@ -28,6 +29,9 @@ const ResourceDetailPage = () => {
     const [address, setAddress] = useState(state.address);
     const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
     const [wantedAmount, setWantedAmount] = useState(1);
+    const [headerTitle, setHeaderTitle] = useState(state.header_title);
+    const [matchedItem, setMatchedItem] = useState(state.matched_items?.length > 0 ? state.matched_items[0] : null);
+    console.log('matchedItem', matchedItem);
 
     const handlePlus = () => {
         if (wantedAmount < count)
@@ -40,11 +44,15 @@ const ResourceDetailPage = () => {
         }
     }
 
+    if (!state) {
+        return ;
+    }
+
     return (
         <>
             <TextHeader 
-                text="자원 등록" 
-                buttonText={state && "매칭하기"} 
+                text={headerTitle}
+                buttonText={state.value && "매칭하기"} 
                 onClick={() => setIsOpen(true)}
             />
             <S.Wrapper>
@@ -71,11 +79,11 @@ const ResourceDetailPage = () => {
                             <S.Value>{material}</S.Value>
                         </S.CategoryWarpper>
                         <S.Divider />
-                        {state && (
+                        {value && (
                             <>
                                 <S.CategoryWarpper>
                                     <S.Category>가치 |</S.Category>
-                                    <S.Value>{value.toLocaleString()} P</S.Value>
+                                    <S.Value>{value} P</S.Value>
                                 </S.CategoryWarpper>
                                 <S.Divider />
                             </>
@@ -129,32 +137,33 @@ const ResourceDetailPage = () => {
                 onClose={() => setIsAutoMatch(false)}
                 overlayColor="rgba(0, 0, 0, 0.8)"
             >
+                {matchedItem && (
                 <S.BottomSheetWrapper>
                     <S.BottomSheetTitle>매칭 정보</S.BottomSheetTitle>
                     <S.RequestHeader>
                         <S.RequestHeaderLeft>
-                            <S.RequestTitle>데님 원단으로 업사이클링 가방 제작</S.RequestTitle>
+                            <S.RequestTitle>{matchedItem.title}</S.RequestTitle>
                             <S.RequestHeaderRowWrapper>
                                 <S.BottomsheetCategory>종류 |</S.BottomsheetCategory>
-                                <S.RequestHeaderValue>의류 (폐데님 원단)</S.RequestHeaderValue>
+                                <S.RequestHeaderValue>{matchedItem.wanted_item}</S.RequestHeaderValue>
                             </S.RequestHeaderRowWrapper>
                             <S.RequestHeaderRowWrapper>
                                 <S.BottomsheetCategory>재질 |</S.BottomsheetCategory>
-                                <S.RequestHeaderValue>데님</S.RequestHeaderValue>
+                                <S.RequestHeaderValue>{matchedItem.material_type}</S.RequestHeaderValue>
                             </S.RequestHeaderRowWrapper>
                         </S.RequestHeaderLeft>
-                        <S.ResourceImage src={Jeans}/>
+                        <S.ResourceImage src={matchedItem.image_url}/>
                     </S.RequestHeader>
                     <S.MatchingSubTitle>상세 페이지</S.MatchingSubTitle>
                     <S.DescWrapper>
                         <S.CategoryWarpper>
                             <S.Category>수량 |</S.Category>
-                            <S.Value>최소 10kg 이상</S.Value>
+                            <S.Value>{matchedItem.desired_amount}</S.Value>
                         </S.CategoryWarpper>
                         <S.Divider />
                         <S.CategoryWarpper>
                             <S.Category>설명 |</S.Category>
-                            <S.Value>폐데님을 재단하여 유니크한 디자인의 업사이클링 가방을 제작할 예정입니다. 특히 찢어진 부위 없이 넓은 면적의 원단이 필요합니다.</S.Value>
+                            <S.Value>{matchedItem.description}</S.Value>
                         </S.CategoryWarpper>
                     </S.DescWrapper>
                     <S.TwoButtonWrapper>
@@ -169,6 +178,8 @@ const ResourceDetailPage = () => {
                         />
                     </S.TwoButtonWrapper>
                 </S.BottomSheetWrapper>
+
+                )}
             </Bottomsheet>
         </>
     )

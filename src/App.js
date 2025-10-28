@@ -31,8 +31,9 @@ const App = () => {
                     <Route path='/registration' element={<ResourceListPage />} />
                     <Route path='/registration/camera' element={<RegistrationCameraPage />} />
                     <Route path='/registration/create' element={<RegistrationCreatePage />} />
-                    <Route path='/resource/detail' element={<ResourceDetailPage />} />
+                    <Route path='/registration/:resource_id' element={<ResourceDetailPage />} />
                     <Route path='/request' element={<ResourceListPage />} />
+                    <Route path='/request/:resource_id' element={<ResourceDetailPage />} />
                     <Route path='/request/create' element={<RequestCreatePage />} />
                     <Route path='/mypage' element={<MyPage />} />
                     <Route path='/point' element={<PointPage />} />

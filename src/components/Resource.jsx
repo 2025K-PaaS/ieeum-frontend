@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NotCompletedBadge, CompletedBadge, ProgressBadge, SuccessBadge, FailBadge } from './StateBadge';
+import { NotCompletedBadge, PendingBadge, CompletedBadge, ProgressBadge, SuccessBadge, FailBadge } from './StateBadge';
 
 export const Resource = ({ name, type, material, image, state, onClick=null }) => {
     return (
@@ -17,9 +17,11 @@ export const Resource = ({ name, type, material, image, state, onClick=null }) =
                         <CategoryDesc>{material}</CategoryDesc>
                     </Category>
                 </CategoryWrapper>
-                {state==="notCompleted" ? (
+                {state==="available" || state==="open" ? (
                     <NotCompletedBadge />
-                ) : state==="completed" ? (
+                ) : state==="pending" ? (
+                    <PendingBadge />
+                ) : state==="matched" ? (
                     <CompletedBadge />
                 ) : state==="progress" ? (
                     <ProgressBadge />
@@ -53,6 +55,7 @@ const Name = styled.h1`
     font-family: ${({ theme }) =>
     theme.fonts.PretendardBold["font-family"]};
     margin-bottom: 15px;
+    color: ${({theme}) => theme.colors.grayColor3};
 `
 
 const CategoryWrapper = styled.div`

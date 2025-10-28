@@ -9,10 +9,10 @@ import axiosInstance from './../apis/axiosInstance';
 export const Banner = ({ page }) => {
     const navigate = useNavigate();
     
-    const [nickname, setNickname] = useState('지구 지킴이');
-    const [level, setLevel] = useState(2);
-    const [badgeTitle, setBadgeTitle] = useState('새싹 탐험가');
-    const [point, setPoint] = useState(12000);
+    const [nickname, setNickname] = useState('사용자');
+    const [level, setLevel] = useState(0);
+    const [badgeTitle, setBadgeTitle] = useState('');
+    const [point, setPoint] = useState(0);
 
     const handleNickname = async () => {
         try {

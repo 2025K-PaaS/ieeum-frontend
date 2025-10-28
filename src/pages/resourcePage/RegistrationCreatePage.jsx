@@ -74,11 +74,11 @@ const RegistrationCreatePage = () => {
                 material_type: state.material_type,
             });
             console.log('자원 등록 성공', response.data);
-            const isAutoMatch = false;
+            let isAutoMatch = false;
             if (response.data.matched_requests.length > 0) {
                 isAutoMatch = true;
             }
-            navigate('/resource/detail', {
+            navigate(`/registration/${state.analysis_id}`, {
                 state: {
                     analysis_id: state.analysis_id,
                     title,
@@ -91,7 +91,8 @@ const RegistrationCreatePage = () => {
                     phoneNumber,
                     isAutoMatch,
                     image,
-                    type
+                    type,
+                    matched_items: response.data.matched_requests,
                 }
             })
         } catch(error) {
@@ -106,7 +107,7 @@ const RegistrationCreatePage = () => {
             console.log('내 정보 조회', response.data);
             setName(response.data.nickname);
             setPhoneNumber(response.data.phone);
-            setAddress(response.data.addredd);
+            setAddress(response.data.address);
         } catch(error) {
             console.log('내 정보 조회 실패, error.response');
         }

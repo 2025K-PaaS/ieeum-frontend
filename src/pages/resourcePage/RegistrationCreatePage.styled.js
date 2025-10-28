@@ -6,6 +6,8 @@ export const Wrapper = styled.div`
 
 export const RegistrationImage = styled.img`
     height: 100%;
+    object-fit: cover;
+    width: 100%;
 `
 
 export const BottomSheetWrapper = styled.div`
