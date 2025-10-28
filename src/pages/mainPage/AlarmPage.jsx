@@ -20,12 +20,12 @@ const AlarmPage = () => {
                         material={resource.material}
                         image={resource.image}
                         state={resource.state}
-                        onClick={() => navigate('/matchingapplication')}
+                        onClick={() => navigate('/matchingapplication', {state: { isButtonShow: true }})}
                     />
                 ))}
             </S.ResourceWrapper>
         </>
     )
-    }
+}
 
 export default AlarmPage

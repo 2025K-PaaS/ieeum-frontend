@@ -45,16 +45,16 @@ export const Bottomsheet = ({ children, height='', isOpen, onClose, overlayColor
     return (
         <>
             <Overlay 
-                isOpen={translateY < 100} 
+                $isOpen={translateY < 100} 
                 onClick={() => { setTranslateY(100); if (onClose) onClose(); }} 
-                overlayColor={overlayColor}
+                $overlayColor={overlayColor}
             />
             <Sheet 
                 height={height}
                 style={{ transform: `translate(-50%, ${translateY}%)` }}
             >
                 <Handle onMouseDown={handleMouseDown} />
-                <Content isVisible={translateY < 90}> 
+                <Content $isVisible={translateY < 90}> 
                     {children}
                 </Content>
             </Sheet>
@@ -63,17 +63,17 @@ export const Bottomsheet = ({ children, height='', isOpen, onClose, overlayColor
 }
 
 const Overlay = styled.div`
-    display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+    display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 9;
-    background-color: ${({ overlayColor }) => overlayColor}; 
+    background-color: ${({ $overlayColor }) => $overlayColor}; 
     transition: opacity 0.3s ease-out;
-    opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
-    pointer-events: ${({ isOpen }) => (isOpen ? 'auto' : 'none')};
+    opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
+    pointer-events: ${({ $isOpen }) => ($isOpen ? 'auto' : 'none')};
 `
 
 const Sheet = styled.div`
@@ -102,7 +102,7 @@ const Handle = styled.div`
 `
 
 const Content = styled.div`
-    opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
-    pointer-events: ${({ isVisible }) => (isVisible ? 'auto' : 'none')};
+    opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+    pointer-events: ${({ $isVisible }) => ($isVisible ? 'auto' : 'none')};
     transition: opacity 0.2s ease-out;
 `

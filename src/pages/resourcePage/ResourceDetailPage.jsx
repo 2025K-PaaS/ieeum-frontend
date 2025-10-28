@@ -16,19 +16,27 @@ const ResourceDetailPage = () => {
     console.log('state', state);
     
     const [isOpen, setIsOpen] = useState(false);
-    const [isAutoMatch, setIsAutoMatch] = useState(true);
-    const [count, setCount] = useState(1);
-    const [name, setName] = useState('김지구');
-    const [address, setAddress] = useState('서울특별시 마포구 자원순환로 100 (환경동, 에코빌 101호)');
-    const [phoneNumber, setPhoneNumber] = useState('010-1234-5678');
+    const [isAutoMatch, setIsAutoMatch] = useState(state.isAutoMatch);
+    const [title, setTitle] = useState(state.title);
+    const [count, setCount] = useState(state.count);
+    const [material, setMaterial] = useState(state.material);
+    const [type, setType] = useState(state.type);
+    const [value, setValue] = useState(state.value);
+    const [description, setDescription] = useState(state.description);
+    const [image, setImage] = useState(state.image);
+    const [name, setName] = useState(state.name);
+    const [address, setAddress] = useState(state.address);
+    const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
+    const [wantedAmount, setWantedAmount] = useState(1);
 
     const handlePlus = () => {
-        setCount(count+1);
+        if (wantedAmount < count)
+        setCount(wantedAmount+1);
     }
 
     const handleMinus = () => {
-        if (count > 1) {
-            setCount(count-1);
+        if (wantedAmount > 1) {
+            setCount(wantedAmount-1);
         }
     }
 
@@ -41,8 +49,8 @@ const ResourceDetailPage = () => {
             />
             <S.Wrapper>
                 <S.Container>
-                    <S.Title>오래된 청바지</S.Title>
-                    <S.RegistrationImage src={Jeans} alt="자원 이미지"/>
+                    <S.Title>{title}</S.Title>
+                    <S.RegistrationImage src={image} alt="자원 이미지"/>
                 </S.Container>
                 <S.Line />
                 <S.Container>
@@ -50,31 +58,31 @@ const ResourceDetailPage = () => {
                     <S.DescWrapper>
                         <S.CategoryWarpper>
                             <S.Category>수량 |</S.Category>
-                            <S.Value>3</S.Value>
+                            <S.Value>{count}</S.Value>
                         </S.CategoryWarpper>
                         <S.Divider />
                         <S.CategoryWarpper>
                             <S.Category>종류 |</S.Category>
-                            <S.Value>의류 (하의)</S.Value>
+                            <S.Value>{type}</S.Value>
                         </S.CategoryWarpper>
                         <S.Divider />
                         <S.CategoryWarpper>
                             <S.Category>재질 |</S.Category>
-                            <S.Value>데님</S.Value>
+                            <S.Value>{material}</S.Value>
                         </S.CategoryWarpper>
                         <S.Divider />
                         {state && (
                             <>
                                 <S.CategoryWarpper>
                                     <S.Category>가치 |</S.Category>
-                                    <S.Value>2,000 P</S.Value>
+                                    <S.Value>{value.toLocaleString()} P</S.Value>
                                 </S.CategoryWarpper>
                                 <S.Divider />
                             </>
                         )}
                         <S.CategoryWarpper>
                             <S.Category>설명 |</S.Category>
-                            <S.Value>사용감은 있으나 찢어지거나 오염된 곳은 없습니다. 세탁 후 보관 중입니다.사용감은 있으나 찢어지거나 오염된 곳은 없습니다. 세탁 후 보관 중입니다.사용감은 있으나 찢어지거나 오염된 곳은 없습니다. 세탁 후 보관 중입니다.</S.Value>
+                            <S.Value>{description}</S.Value>
                         </S.CategoryWarpper>
                     </S.DescWrapper>
                 </S.Container>
@@ -88,11 +96,11 @@ const ResourceDetailPage = () => {
                 <S.BottomSheetWrapper>
                     <S.BottomSheetTitle>필요 수량</S.BottomSheetTitle>
                     <S.CountWrapper>
-                        <S.CountButtonWrapper onClick={handleMinus} disabled={count<=1}>
+                        <S.CountButtonWrapper onClick={handleMinus} disabled={wantedAmount<=1}>
                             <img src={Minus} alt="빼기 아이콘" />
                         </S.CountButtonWrapper>
                         <S.Count>{count}</S.Count>
-                        <S.CountButtonWrapper onClick={handlePlus}>
+                        <S.CountButtonWrapper onClick={handlePlus} disabled={wantedAmount>=count}>
                             <img src={Plus} alt="더하기 아이콘" />
                         </S.CountButtonWrapper>
                     </S.CountWrapper>

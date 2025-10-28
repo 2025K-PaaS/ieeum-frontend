@@ -9,8 +9,10 @@ import Jeans from '../../assets/images/jeans.png';
 
 const MatchingApplicationPage = () => {
     const { state } = useLocation();
-    console.log('state.isButtonShow', state.isButtonShow);
-    const [isButtonShow, setIsButtonShow] = useState(state.isButtonShow);
+    
+    const initialIsButtonShow = state.isButtonShow !== undefined ? state.isButtonShow : false;
+    
+    const [isButtonShow, setIsButtonShow] = useState(initialIsButtonShow);
 
     return (
         <>
