@@ -9,14 +9,6 @@ export const NotCompletedBadge = () => {
     )
 }
 
-export const PendingBadge = () => {
-    return (
-        <Wrapper color='#AEDC40'>
-            매칭 대기 중
-        </Wrapper>
-    )
-}
-
 export const CompletedBadge = () => {
     return (
         <Wrapper color='#AEDC40'>

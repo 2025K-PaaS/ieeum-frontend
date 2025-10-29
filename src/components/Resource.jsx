@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NotCompletedBadge, PendingBadge, CompletedBadge, ProgressBadge, SuccessBadge, FailBadge } from './StateBadge';
+import { NotCompletedBadge, CompletedBadge, ProgressBadge, SuccessBadge, FailBadge } from './StateBadge';
 
 export const Resource = ({ name, type, material, image, state, onClick=null }) => {
     return (
@@ -17,10 +17,8 @@ export const Resource = ({ name, type, material, image, state, onClick=null }) =
                         <CategoryDesc>{material}</CategoryDesc>
                     </Category>
                 </CategoryWrapper>
-                {state==="available" || state==="open" ? (
+                {state==="available" || state==="pending" ? (
                     <NotCompletedBadge />
-                ) : state==="pending" ? (
-                    <PendingBadge />
                 ) : state==="matched" ? (
                     <CompletedBadge />
                 ) : state==="progress" ? (
@@ -29,7 +27,7 @@ export const Resource = ({ name, type, material, image, state, onClick=null }) =
                     <SuccessBadge />
                 ) : <FailBadge />}
             </InfoWrapper>
-            <ResourceImg src={image}/>
+            {image && <ResourceImg src={image}/>}
         </Wrapper>
     )
 }

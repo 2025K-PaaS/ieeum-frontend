@@ -41,7 +41,7 @@ const ResourceListPage = () => {
     
     const handleRequest = async () => {
         try {
-            const response = await axiosInstance.get('/requests/pending');
+            const response = await axiosInstance.get('/requests/all');
             console.log('자원 목록', response.data);
             setResources(response.data.requests);
         } catch(error) {
@@ -76,7 +76,6 @@ const ResourceListPage = () => {
                                     type: resource.item_name || resource.wanted_item,
                                     isAutoMatch: false,
                                     image: resource.image_url,
-                                    page,
                                     header_title: headerTitle,
                                 }
                             })}

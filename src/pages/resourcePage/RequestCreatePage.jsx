@@ -4,8 +4,12 @@ import { TextHeader } from './../../components/TextHeader';
 import { GreenButton } from '../../components/GreenButton';
 import { Navbar } from './../../components/Navbar';
 import Image from '../../assets/icons/image.svg';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from './../../apis/axiosInstance';
 
 const RequestCreatePage = () => {
+    const navigate = useNavigate();
+
     const [title, setTitle] = useState('');
     const [image, setImage] = useState(null);
     const [count, setCount] = useState('');
@@ -36,6 +40,36 @@ const RequestCreatePage = () => {
         event.style.height = '0px';
         event.style.height = `${event.scrollHeight}px`;
     }
+
+    const handleSubmit = async () => {
+        try {
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('item_name', type);
+            formData.append('amount', count);
+            formData.append('description', description);
+            formData.append('material_type', material);
+            formData.append('image', image);
+            const response = await axiosInstance.post('/requests', formData);
+            console.log('자원 요청', response.data);
+            navigate(`/request/${response.data.request_id}`, {
+                state: {
+                    resource_id: response.data.request_id,
+                    title,
+                    description,
+                    count,
+                    material,
+                    type,
+                    isAutoMatch: false,
+                    image,
+                    header_title: "자원 요청",
+                }
+            })
+        } catch(error) {
+            console.log('자원 요청 실패', error.response);
+        }
+    }
+
 
     useEffect(() => {
         handleTextareaHeight(countRef.current);
@@ -126,7 +160,7 @@ const RequestCreatePage = () => {
                     </S.Detail>
                 </S.DetailWrapper>
                 <S.ButtonWrapper>
-                    <GreenButton text="요청 하기"/>
+                    <GreenButton text="요청 하기" onClick={handleSubmit}/>
                 </S.ButtonWrapper>
             </S.Container>
             <Navbar />

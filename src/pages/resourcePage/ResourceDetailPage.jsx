@@ -58,7 +58,9 @@ const ResourceDetailPage = () => {
             <S.Wrapper>
                 <S.Container>
                     <S.Title>{title}</S.Title>
-                    <S.RegistrationImage src={image} alt="자원 이미지"/>
+                    {image && (
+                        <S.RegistrationImage src={image} alt="자원 이미지"/>
+                    )}
                 </S.Container>
                 <S.Line />
                 <S.Container>
