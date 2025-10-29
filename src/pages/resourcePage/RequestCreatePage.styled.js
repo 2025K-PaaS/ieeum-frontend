@@ -16,6 +16,7 @@ export const Title = styled.input`
     color: ${({theme}) => theme.colors.blackColor};
     background-color: #FCFCFF;
     border: 0;
+    width: 100%;
 `
 
 export const ImageWrapper = styled.div`

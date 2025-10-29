@@ -100,6 +100,7 @@ const MyPage = () => {
                                     isAutoMatch: false,
                                     image: resource.image_url,
                                     header_title: headerTitle,
+                                    username: resource.username,
                                 }
                             })}
                             />

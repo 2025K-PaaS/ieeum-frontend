@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './ResourceDetailPage.styled';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { TextHeader } from '../../components/TextHeader';
@@ -6,9 +6,9 @@ import { Navbar } from '../../components/Navbar';
 import { Bottomsheet } from '../../components/Bottomsheet';
 import { GreenButton } from '../../components/GreenButton';
 import { GrayButton } from './../../components/GrayButton';
-import Jeans from '../../assets/images/jeans.png';
 import Plus from '../../assets/icons/plus-gray.svg';
 import Minus from '../../assets/icons/minus.svg';
+import axiosInstance from './../../apis/axiosInstance';
 
 const ResourceDetailPage = () => {
     const navigate = useNavigate();
@@ -25,9 +25,10 @@ const ResourceDetailPage = () => {
     const [value, setValue] = useState(state.value);
     const [description, setDescription] = useState(state.description);
     const [image, setImage] = useState(state.image);
-    const [name, setName] = useState(state.name);
-    const [address, setAddress] = useState(state.address);
-    const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
+    const [name, setName] = useState('');
+    const [address, setAddress] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [owner, setOwner] = useState(state.username);
     const [wantedAmount, setWantedAmount] = useState(1);
     const [headerTitle, setHeaderTitle] = useState(state.header_title);
     const [matchedItem, setMatchedItem] = useState(state.matched_items?.length > 0 ? state.matched_items[0] : null);
@@ -44,23 +45,92 @@ const ResourceDetailPage = () => {
         }
     }
 
-    if (!state) {
-        return ;
+    const handleAccept = async () => {
+        console.log('수락')
+        try {
+            const response = await axiosInstance.post('/notifications/confirm', {
+                resource_id: state.analysis_id,
+                request_id: matchedItem.request_id,
+                action: "accept"
+            })
+            console.log('매칭 수락 성공', response.data);
+            navigate('/matchingapplication', {state: { isButtonShow: false }})
+        } catch(error) {
+            console.log('매칭 수락 실패', error.response);
+            alert('매칭을 수락하지 못했습니다. 다시 시도해 주세요.')
+        }
     }
+
+    const handleReject = async () => {
+        console.log('거절')
+        try {
+            const response = await axiosInstance.post('/notifications/confirm', {
+                resource_id: state.analysis_id,
+                request_id: matchedItem.request_id,
+                action: "decline"
+            })
+            console.log('매칭 거절 성공', response.data);
+            setIsAutoMatch(false);
+        } catch(error) {
+            console.log('매칭 수락 실패', error.response);
+            alert('매칭을 거절하지 못했습니다. 다시 시도해 주세요.')
+        }
+    }
+
+    const handleUserInfo = async () => {
+        try {
+            const response = await axiosInstance.get('/auth/me');
+            console.log('사용자 정보 조회', response.data.name);
+            setName(response.data.name);
+            setAddress(response.data.address);
+            setPhoneNumber(response.data.phone);
+        } catch(error) {
+            console.log('사용자 정보 조회 실패', error.response);
+        }
+    }
+
+    const handleMatching = async () => {
+        try {
+            const response = await axiosInstance.post('/notifications/iwant', {
+                resource_id,
+                amount: wantedAmount,
+            });
+            console.log('수동 매칭 신청', response.data);
+            navigate('/matchingapplication', {
+                state: { 
+                    headerTitle: "매칭 내역",
+                    isButtonShow: false,
+                    title,
+                    count,
+                    type,
+                    material,
+                    value,
+                    description,
+                    image,
+                    name,
+                    address,
+                    phoneNumber,
+                }})
+        } catch(error) {
+            console.log('수동 매칭 신청 실패', error.response);
+        }
+    }
+
+    useEffect(() => {
+        handleUserInfo();
+    }, [])
 
     return (
         <>
             <TextHeader 
                 text={headerTitle}
-                buttonText={state.value && "매칭하기"} 
+                buttonText={(state.value && name!==owner) && "매칭하기"} 
                 onClick={() => setIsOpen(true)}
             />
             <S.Wrapper>
                 <S.Container>
                     <S.Title>{title}</S.Title>
-                    {image && (
-                        <S.RegistrationImage src={image} alt="자원 이미지"/>
-                    )}
+                    <S.RegistrationImage src={image} alt="자원 이미지"/>
                 </S.Container>
                 <S.Line />
                 <S.Container>
@@ -130,7 +200,7 @@ const ResourceDetailPage = () => {
                         </S.CategoryWrapper>
                     </S.DestinationWrapper>
                     <S.ButtonWrapper>
-                        <GreenButton text="매칭 신청" />
+                        <GreenButton text="매칭 신청" onClick={handleMatching}/>
                     </S.ButtonWrapper>
                 </S.BottomSheetWrapper>
             </Bottomsheet>
@@ -171,12 +241,12 @@ const ResourceDetailPage = () => {
                     <S.TwoButtonWrapper>
                         <GrayButton 
                             text="거절"
-                            onClick={() => setIsAutoMatch(false)}
+                            onClick={handleReject}
                             width={130}
                         />
                         <GreenButton 
                             text="수락"
-                            onClick={() => navigate('/matchingapplication', {state: { isButtonShow: false }})}
+                            onClick={handleAccept}
                         />
                     </S.TwoButtonWrapper>
                 </S.BottomSheetWrapper>

@@ -63,6 +63,7 @@ const MainPage = () => {
                             type: resource.item_name,
                             isAutoMatch: false,
                             image: resource.image_url,
+                            username: resource.username,
                         }
                     })}
                 />

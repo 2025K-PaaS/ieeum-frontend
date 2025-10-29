@@ -67,7 +67,7 @@ const ResourceListPage = () => {
                             state={resource.status}
                             onClick={() => navigate(path, {
                                 state: {
-                                    resource_id: resource.analysis_id || resource.request_id,
+                                    resource_id: resource.analysis_id || resource.resource_id || resource.request_id,
                                     title: resource.title,
                                     description: resource.description,
                                     count: resource.amount || resource.desired_amount,
@@ -77,6 +77,7 @@ const ResourceListPage = () => {
                                     isAutoMatch: false,
                                     image: resource.image_url,
                                     header_title: headerTitle,
+                                    username: resource.username,
                                 }
                             })}
                         />
