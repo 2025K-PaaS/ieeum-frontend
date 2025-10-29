@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './PointPage.styled';
 import { TextHeader } from './../../components/TextHeader';
-import { pointData } from './../../constant/pointData';
 import axiosInstance from './../../apis/axiosInstance';
 
 const PointPage = () => {
     const [currentPoint, setCurrentPoint] = useState(0);
     const [totalPoint, setTotalPoint] = useState(0);
+    const [pointData, setPoint] = useState([]);
 
     const handlePoint = async () => {
         try {
-            const response = await axiosInstance.get('/points/me');
+            const response = await axiosInstance.get('/points/me/all');
             console.log('포인트 조회', response.data);
             setCurrentPoint(response.data.balance);
             setTotalPoint(response.data.lifetime_earned);
+            setPoint(response.data.items);
         } catch(error) {
             console.log('포인트 조회 실패', error.response);
         }
@@ -40,14 +41,18 @@ const PointPage = () => {
                 <S.PointWrapper>
                     {pointData.map((point, index) => (
                         <S.Point key={index}>
-                            <S.Name>{point.name}</S.Name>
+                            <S.Name>{point.item_title}</S.Name>
                             <S.DescWrapper>
                                 <S.CountWrapper>
-                                    <S.CountTitle>수량 |</S.CountTitle>
-                                    <S.Count>{point.count}</S.Count>
+                                {point.ref_type==="resource" && (
+                                    <>
+                                        <S.CountTitle>수량 |</S.CountTitle>
+                                        <S.Count>{point.item_amount}</S.Count>
+                                    </>
+                                )}
                                 </S.CountWrapper>
                                 <S.BadgeWrapper>
-                                    <S.BadgeText>{point.point.toLocaleString()} P</S.BadgeText>
+                                    <S.BadgeText>{point.delta.toLocaleString()} P</S.BadgeText>
                                 </S.BadgeWrapper>
                             </S.DescWrapper>
                         </S.Point>

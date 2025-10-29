@@ -61,7 +61,7 @@ const RequestCreatePage = () => {
                     material,
                     type,
                     isAutoMatch: false,
-                    image,
+                    image: response.data.image_url,
                     header_title: "자원 요청",
                 }
             })
