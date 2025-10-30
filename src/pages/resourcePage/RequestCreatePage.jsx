@@ -44,12 +44,14 @@ const RequestCreatePage = () => {
     const handleSubmit = async () => {
         try {
             const formData = new FormData();
-            formData.append('title', title);
-            formData.append('item_name', type);
+            formData.append('item_name', title);
+            formData.append('item_type', type);
             formData.append('amount', count);
             formData.append('description', description);
             formData.append('material_type', material);
-            formData.append('image', image);
+            if (image) { 
+                formData.append('image', image);
+            }
             const response = await axiosInstance.post('/requests', formData);
             console.log('자원 요청', response.data);
             navigate(`/request/${response.data.request_id}`, {

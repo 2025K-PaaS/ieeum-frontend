@@ -8,7 +8,7 @@ export const InputWrapper = ({ title, desc, value, onChange, height }) => {
                 <Title>{title}</Title>
                 <Desc>{desc}</Desc>
             </TitleWrappr>
-            <Input value={value} height={height} onChange={onChange}/>
+            <Input value={value} height={height} onChange={onChange} spellcheck="false"/>
         </Wrapper>
     )
 }

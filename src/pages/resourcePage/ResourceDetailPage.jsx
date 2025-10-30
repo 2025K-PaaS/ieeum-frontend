@@ -46,18 +46,36 @@ const ResourceDetailPage = () => {
     }
 
     const handleAccept = async () => {
-        console.log('수락')
+        console.log('수락');
+        console.log('resource_id', resource_id);
+        console.log('request_id', matchedItem.request_id);
+        console.log('action', "accept");
+
         try {
             const response = await axiosInstance.post('/notifications/confirm', {
-                resource_id: state.analysis_id,
+                resource_id: resource_id,
                 request_id: matchedItem.request_id,
                 action: "accept"
             })
             console.log('매칭 수락 성공', response.data);
-            navigate('/matchingapplication', {state: { isButtonShow: false }})
+            navigate('/matchingapplication', {
+                state: { 
+                    headerTitle: "매칭 내역",
+                    isButtonShow: false,
+                    title,
+                    count,
+                    type,
+                    material,
+                    value,
+                    description,
+                    image,
+                    name,
+                    address,
+                    phoneNumber,
+                }})
         } catch(error) {
             console.log('매칭 수락 실패', error.response);
-            alert('매칭을 수락하지 못했습니다. 다시 시도해 주세요.')
+            setIsAutoMatch(false);
         }
     }
 
@@ -65,15 +83,15 @@ const ResourceDetailPage = () => {
         console.log('거절')
         try {
             const response = await axiosInstance.post('/notifications/confirm', {
-                resource_id: state.analysis_id,
+                resource_id: resource_id,
                 request_id: matchedItem.request_id,
-                action: "decline"
+                action: "reject"
             })
-            console.log('매칭 거절 성공', response.data);
+            console.log('자동 매칭 거절 성공', response.data);
             setIsAutoMatch(false);
         } catch(error) {
-            console.log('매칭 수락 실패', error.response);
-            alert('매칭을 거절하지 못했습니다. 다시 시도해 주세요.')
+            console.log('자동 매칭 거절 실패', error.response);
+            setIsAutoMatch(false);
         }
     }
 
@@ -130,7 +148,7 @@ const ResourceDetailPage = () => {
             <S.Wrapper>
                 <S.Container>
                     <S.Title>{title}</S.Title>
-                    <S.RegistrationImage src={image} alt="자원 이미지"/>
+                    {(image && image!=="https://k-paas.dajeong.shop/None") && <S.RegistrationImage src={image} alt="자원 이미지"/>}
                 </S.Container>
                 <S.Line />
                 <S.Container>
@@ -217,22 +235,26 @@ const ResourceDetailPage = () => {
                             <S.RequestTitle>{matchedItem.title}</S.RequestTitle>
                             <S.RequestHeaderRowWrapper>
                                 <S.BottomsheetCategory>종류 |</S.BottomsheetCategory>
-                                <S.RequestHeaderValue>{matchedItem.wanted_item}</S.RequestHeaderValue>
+                                <S.RequestHeaderValue>{matchedItem.item_type}</S.RequestHeaderValue>
                             </S.RequestHeaderRowWrapper>
                             <S.RequestHeaderRowWrapper>
                                 <S.BottomsheetCategory>재질 |</S.BottomsheetCategory>
                                 <S.RequestHeaderValue>{matchedItem.material_type}</S.RequestHeaderValue>
                             </S.RequestHeaderRowWrapper>
                         </S.RequestHeaderLeft>
-                        <S.ResourceImage src={matchedItem.image_url}/>
+                        {matchedItem.image_url && matchedItem.image_url!=="https://k-paas.dajeong.shop/None" && <S.ResourceImage src={matchedItem.image_url}/>}
                     </S.RequestHeader>
                     <S.MatchingSubTitle>상세 페이지</S.MatchingSubTitle>
                     <S.DescWrapper>
-                        <S.CategoryWarpper>
-                            <S.Category>수량 |</S.Category>
-                            <S.Value>{matchedItem.desired_amount}</S.Value>
-                        </S.CategoryWarpper>
-                        <S.Divider />
+                        {matchedItem.desired_amount && (
+                            <>
+                                <S.CategoryWarpper>
+                                    <S.Category>수량 |</S.Category>
+                                    <S.Value>{matchedItem.desired_amount}</S.Value>
+                                </S.CategoryWarpper>
+                                <S.Divider />
+                            </>
+                        )}
                         <S.CategoryWarpper>
                             <S.Category>설명 |</S.Category>
                             <S.Value>{matchedItem.description}</S.Value>
