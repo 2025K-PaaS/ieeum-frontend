@@ -36,12 +36,12 @@ const ResourceDetailPage = () => {
 
     const handlePlus = () => {
         if (wantedAmount < count)
-        setCount(wantedAmount+1);
+        setWantedAmount(wantedAmount+1);
     }
 
     const handleMinus = () => {
         if (wantedAmount > 1) {
-            setCount(wantedAmount-1);
+            setWantedAmount(wantedAmount-1);
         }
     }
 
@@ -142,7 +142,7 @@ const ResourceDetailPage = () => {
         <>
             <TextHeader 
                 text={headerTitle}
-                buttonText={(state.value && name!==owner) && "매칭하기"} 
+                buttonText={(state.value && name!==owner && state.status!=="matched") && "매칭하기"} 
                 onClick={() => setIsOpen(true)}
             />
             <S.Wrapper>
@@ -194,11 +194,11 @@ const ResourceDetailPage = () => {
                 <S.BottomSheetWrapper>
                     <S.BottomSheetTitle>필요 수량</S.BottomSheetTitle>
                     <S.CountWrapper>
-                        <S.CountButtonWrapper onClick={handleMinus} disabled={wantedAmount<=1}>
+                        <S.CountButtonWrapper onClick={handleMinus} disabled={wantedAmount <= 1}>
                             <img src={Minus} alt="빼기 아이콘" />
                         </S.CountButtonWrapper>
-                        <S.Count>{count}</S.Count>
-                        <S.CountButtonWrapper onClick={handlePlus} disabled={wantedAmount>=count}>
+                        <S.Count>{wantedAmount}</S.Count>
+                        <S.CountButtonWrapper onClick={handlePlus} disabled={wantedAmount >= count}>
                             <img src={Plus} alt="더하기 아이콘" />
                         </S.CountButtonWrapper>
                     </S.CountWrapper>
@@ -272,7 +272,6 @@ const ResourceDetailPage = () => {
                         />
                     </S.TwoButtonWrapper>
                 </S.BottomSheetWrapper>
-
                 )}
             </Bottomsheet>
         </>

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NotCompletedBadge, CompletedBadge, ProgressBadge, SuccessBadge, FailBadge } from './StateBadge';
+import { NotCompletedBadge, CompletedBadge, ProgressBadge, SendingBadge, SuccessBadge, FailBadge } from './StateBadge';
 
-export const Resource = ({ name, type, material, image, state, onClick=null }) => {
+export const Resource = ({ name, type, material, image, state, role, onClick=null }) => {
     return (
         <Wrapper onClick={onClick}>
             <InfoWrapper>
@@ -21,9 +21,11 @@ export const Resource = ({ name, type, material, image, state, onClick=null }) =
                     <NotCompletedBadge />
                 ) : state==="matched" ? (
                     <CompletedBadge />
+                ) : state==="proposed" && role==="requester" ? (
+                    <SendingBadge />
                 ) : state==="proposed" ? (
                     <ProgressBadge />
-                ) : state==="success" ? (
+                ): state==="success" ? (
                     <SuccessBadge />
                 ) : <FailBadge />}
             </InfoWrapper>

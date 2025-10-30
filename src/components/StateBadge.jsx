@@ -25,6 +25,14 @@ export const ProgressBadge = () => {
     )
 }
 
+export const SendingBadge = () => {
+    return (
+        <Wrapper color='#AEDC40'>
+            매칭 신청을 보냈어요!
+        </Wrapper>
+    )
+}
+
 export const SuccessBadge = () => {
     return (
         <Wrapper color='#0B9454'>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import * as S from './AlarmPage.styled';
 import { TextHeader } from '../../components/TextHeader';
 import { Resource } from '../../components/Resource';
-import { resourceData } from '../../constant/resourceData';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from './../../apis/axiosInstance';
 
@@ -39,19 +38,25 @@ const AlarmPage = () => {
     }
 
     const handleResourceInfo = async (resource) => {
-        const { address, phoneNumber } = await handlerequestWriter(resource.resource.username);
+        const { address, phoneNumber } = await handlerequestWriter(resource.request.username);
+        const isButtonShow = 
+            resource.role==="supplier" && resource.state==="proposed" ? true :
+            resource.role==="requester" && resource.state==="proposed" ? false : false;
+            
         navigate('/matchingapplication', {
             state: { 
                 headerTitle: "매칭 신청",
-                isButtonShow: true,
+                isButtonShow,
                 title: resource.resource.title,
                 count: resource.resource.amount,
-                type: resource.resource.item_name,
+                type: resource.resource.item_type,
                 material: resource.resource.material_type,
                 value: resource.resource.value,
                 description: resource.resource.description,
                 image: resource.resource.image_url,
-                name: resource.resource.username,
+                resource_id: resource.resource.resource_id,
+                request_id: resource.request.request_id,
+                name: resource.request.username,
                 address: address,
                 phoneNumber: phoneNumber,
             }
@@ -66,8 +71,14 @@ const AlarmPage = () => {
         <>
             <TextHeader text="알림" />
             <S.ResourceWrapper>
-                {matchingData.map((resource, index) => (
-                    resource.role==="requester" && resource.state!=="unknown" && (
+                {matchingData.map((resource, index) => {
+                console.log('역할', resource.role);
+
+                    if (resource.state!=="proposed") {
+                        return null;
+                    }
+
+                    return(
                         <Resource
                             key={index}
                             name={resource.resource.title}
@@ -75,10 +86,10 @@ const AlarmPage = () => {
                             material={resource.resource.material_type}
                             image={resource.resource.image_url}
                             state={resource.state}
+                            role={resource.role}
                             onClick={() => handleResourceInfo(resource)}
-                        />
-                    )
-                ))}
+                        />)
+                })}
             </S.ResourceWrapper>
         </>
     )

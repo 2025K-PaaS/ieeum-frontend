@@ -4,9 +4,11 @@ import { TextHeader } from './../../components/TextHeader';
 import { GreenButton } from '../../components/GreenButton';
 import { GrayButton } from './../../components/GrayButton';
 import { Navbar } from '../../components/Navbar';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axiosInstance from '../../apis/axiosInstance';
 
 const MatchingApplicationPage = () => {
+    const navigate = useNavigate();
     const { state } = useLocation();
     console.log('state', state);
     
@@ -25,12 +27,50 @@ const MatchingApplicationPage = () => {
     const [address, setAddress] = useState(state.address);
     const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
 
+    console.log('resource_id', state.resource_id);
+    console.log('request_id', state.request_id);
+    console.log('종류', state.type, "설명", state.description)
+
+    const handleAccept = async () => {
+        console.log('수락');
+
+        try {
+            const response = await axiosInstance.post('/notifications/confirm', {
+                resource_id: state.resource_id,
+                request_id: state.request_id,
+                action: "accept"
+            })
+            console.log('매칭 수락 성공', response.data);
+        } catch(error) {
+            console.log('매칭 수락 실패', error.response);
+        } finally {
+            navigate(-1);
+        }
+    }
+
+    const handleReject = async () => {
+        console.log('거절');
+
+        try {
+            const response = await axiosInstance.post('/notifications/confirm', {
+                resource_id: state.resource_id,
+                request_id: state.request_id,
+                action: "reject"
+            })
+            console.log('자동 매칭 거절 성공', response.data);
+        } catch(error) {
+            console.log('자동 매칭 거절 실패', error.response);
+        } finally {
+            navigate(-1);
+        }
+    }
+
     return (
         <>
             <TextHeader text={headerTitle} />
             <S.Wrapper>
                 <S.Title>{title}</S.Title>
-                {!isButtonShow && (
+                {headerTitle!=="매칭 신청" && !isButtonShow && (
                     <>
                         <S.ResourceImage src={image}/>
                         <S.SectionDivider />
@@ -87,12 +127,12 @@ const MatchingApplicationPage = () => {
                         <S.TwoButtonWrapper>
                             <GrayButton 
                                 text="거절"
-                                onClick={() => {}}
+                                onClick={handleReject}
                                 width={130}
                             />
                             <GreenButton 
                                 text="수락"
-                                onClick={() => {}}
+                                onClick={handleAccept}
                             />
                         </S.TwoButtonWrapper>
                     )}

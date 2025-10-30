@@ -73,11 +73,12 @@ const ResourceListPage = () => {
                                     count: resource.amount || resource.desired_amount,
                                     value: resource.value,
                                     material: resource.material_type,
-                                    type: resource.item_name || resource.item_type,
+                                    type: resource.item_type || resource.item_name,
                                     isAutoMatch: false,
                                     image: resource.image_url,
                                     header_title: headerTitle,
                                     username: resource.username,
+                                    status: resource.status,
                                 }
                             })}
                         />

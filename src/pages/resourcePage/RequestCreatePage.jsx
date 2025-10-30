@@ -118,7 +118,8 @@ const RequestCreatePage = () => {
                             ref={countRef}
                             value={count}
                             onChange={(e) => {
-                                setCount(e.target.value)
+                                const value = e.target.value.replace(/[^0-9]/g, ''); 
+                                setCount(value)
                                 handleTextareaHeight(e)
                             }}
                             spellCheck={false}
