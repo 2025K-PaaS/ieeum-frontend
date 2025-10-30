@@ -101,6 +101,7 @@ const MyPage = () => {
                                     image: resource.image_url,
                                     header_title: headerTitle,
                                     username: resource.username,
+                                    owner: true,
                                 }
                             })}
                             />

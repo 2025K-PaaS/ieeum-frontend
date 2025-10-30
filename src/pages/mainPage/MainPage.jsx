@@ -12,6 +12,7 @@ import axiosInstance from '../../apis/axiosInstance';
 const MainPage = () => {
     const navigate = useNavigate();
     const [resources, setResources] = useState([]);
+    const [username, setUsername] = useState('');
 
     const handleResource = async () => {
         try {
@@ -23,7 +24,18 @@ const MainPage = () => {
         }
     }
 
+    const handleMyInfo = async () => {
+        try {
+            const response = await axiosInstance.get('/auth/me');
+            console.log('내 정보', response.data);
+            setUsername(response.data.username);
+        } catch(error) {
+            console.log('내 정보 가져오기 실패', error.response);
+        }
+    }
+
     useEffect(() => {
+        handleMyInfo();
         handleResource();
     }, [])
 
@@ -65,6 +77,7 @@ const MainPage = () => {
                             image: resource.image_url,
                             username: resource.username,
                             header_title: "자원 등록",
+                            owner: username===resource.username,
                         }
                     })}
                 />

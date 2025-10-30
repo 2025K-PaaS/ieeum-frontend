@@ -95,6 +95,7 @@ const RegistrationCreatePage = () => {
                     matched_items: response.data.matched_requests,
                     username: name,
                     header_title: "자원 등록",
+                    owner: true,
                 }
             })
         } catch(error) {

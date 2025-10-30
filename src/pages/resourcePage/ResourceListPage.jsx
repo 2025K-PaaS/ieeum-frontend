@@ -13,6 +13,7 @@ const ResourceListPage = () => {
     const [page, setPage] = useState("");
     const [resources, setResources] = useState([]);
     const [headerTitle, setHeaderTitle] = useState('');
+    const [username, setUsername] = useState('');
 
     useEffect(() => {
         const loc = location.pathname;
@@ -49,6 +50,20 @@ const ResourceListPage = () => {
         }
     }
 
+    const handleMyInfo = async () => {
+        try {
+            const response = await axiosInstance.get('/auth/me');
+            console.log('내 정보', response.data);
+            setUsername(response.data.username);
+        } catch(error) {
+            console.log('내 정보 가져오기 실패', error.response);
+        }
+    }
+    
+    useEffect(() => {
+        handleMyInfo();
+    }, [])
+
     return (
         <S.Wrapper>
             <LogoHeader text={page}/>
@@ -79,6 +94,7 @@ const ResourceListPage = () => {
                                     header_title: headerTitle,
                                     username: resource.username,
                                     status: resource.status,
+                                owner: username===resource.username,
                                 }
                             })}
                         />

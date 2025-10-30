@@ -29,12 +29,12 @@ const ResourceDetailPage = () => {
     const [name, setName] = useState(state.name);
     const [address, setAddress] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [owner, setOwner] = useState(state.username);
+    const [owner, setOwner] = useState(state.owner);
     const [wantedAmount, setWantedAmount] = useState(1);
     const [headerTitle, setHeaderTitle] = useState(state.header_title);
     const [matchedItem, setMatchedItem] = useState(state.matched_items?.length > 0 ? state.matched_items[0] : null);
     console.log('matchedItem', matchedItem);
-    console.log(name, state.username);
+    console.log(name, state.owner);
 
     const handlePlus = () => {
         if (wantedAmount < count)
@@ -144,7 +144,7 @@ const ResourceDetailPage = () => {
         <>
             <TextHeader 
                 text={headerTitle}
-                buttonText={(state.value && name!==owner && state.status!=="matched") && "매칭하기"} 
+                buttonText={(state.value && !owner && state.status!=="matched") && "매칭하기"} 
                 onClick={() => setIsOpen(true)}
             />
             <S.Wrapper>
