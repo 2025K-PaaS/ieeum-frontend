@@ -15,7 +15,8 @@ const ResourceDetailPage = () => {
     const { state } = useLocation();
     console.log('state', state);
     const { resource_id } = useParams();
-    
+
+
     const [isOpen, setIsOpen] = useState(false);
     const [isAutoMatch, setIsAutoMatch] = useState(state.isAutoMatch);
     const [title, setTitle] = useState(state.title);
@@ -25,7 +26,7 @@ const ResourceDetailPage = () => {
     const [value, setValue] = useState(state.value);
     const [description, setDescription] = useState(state.description);
     const [image, setImage] = useState(state.image);
-    const [name, setName] = useState('');
+    const [name, setName] = useState(state.name);
     const [address, setAddress] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [owner, setOwner] = useState(state.username);
@@ -33,6 +34,7 @@ const ResourceDetailPage = () => {
     const [headerTitle, setHeaderTitle] = useState(state.header_title);
     const [matchedItem, setMatchedItem] = useState(state.matched_items?.length > 0 ? state.matched_items[0] : null);
     console.log('matchedItem', matchedItem);
+    console.log(name, state.username);
 
     const handlePlus = () => {
         if (wantedAmount < count)

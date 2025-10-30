@@ -93,6 +93,8 @@ const RegistrationCreatePage = () => {
                     image,
                     type,
                     matched_items: response.data.matched_requests,
+                    username: name,
+                    header_title: "자원 등록",
                 }
             })
         } catch(error) {
