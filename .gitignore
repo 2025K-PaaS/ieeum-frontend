@@ -23,3 +23,12 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+
+Dockerfile
+nginx.conf
+.dockerignore
+docker-entrypoint.sh
+k8s-frontend.yaml
+k8s-frontend-ingress.yaml
+k8s-frontend-service.yaml
+letsencrypt-prod.yaml
