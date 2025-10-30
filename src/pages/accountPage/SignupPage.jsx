@@ -34,11 +34,13 @@ const SignupPage = () => {
                     title="아이디"
                     value={id}
                     onChange={(e) => setId(e.target.value)}
+                    spellcheck={false}
                 />
                 <InputWrapper 
                     title="비밀번호"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    spellcheck={false}
                 />
             </S.InputWrappers>
             <S.ButtonWrapper>

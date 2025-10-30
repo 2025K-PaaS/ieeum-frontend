@@ -78,9 +78,9 @@ const RegistrationCreatePage = () => {
             if (response.data.matched_requests.length > 0) {
                 isAutoMatch = true;
             }
-            navigate(`/registration/${state.analysis_id}`, {
+            navigate(`/registration/${response.data.resource_id}`, {
                 state: {
-                    analysis_id: state.analysis_id,
+                    resource_id: response.data.resource_id,
                     title,
                     description,
                     count,

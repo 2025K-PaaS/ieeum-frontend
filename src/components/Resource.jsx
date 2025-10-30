@@ -21,13 +21,13 @@ export const Resource = ({ name, type, material, image, state, onClick=null }) =
                     <NotCompletedBadge />
                 ) : state==="matched" ? (
                     <CompletedBadge />
-                ) : state==="progress" ? (
+                ) : state==="proposed" ? (
                     <ProgressBadge />
                 ) : state==="success" ? (
                     <SuccessBadge />
                 ) : <FailBadge />}
             </InfoWrapper>
-            {image && <ResourceImg src={image}/>}
+            {(image && image!=="https://k-paas.dajeong.shop/None") && <ResourceImg src={image}/>}
         </Wrapper>
     )
 }

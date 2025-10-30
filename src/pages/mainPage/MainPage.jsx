@@ -54,7 +54,7 @@ const MainPage = () => {
                     state={resource.status}
                     onClick={() => navigate(`/registration/${resource.resource_id}`, {
                         state: {
-                            analysis_id: resource.analysis_id,
+                            analysis_id: resource.analysis_id || resource.resource_id,
                             title: resource.title,
                             description: resource.description,
                             count: resource.amount,
