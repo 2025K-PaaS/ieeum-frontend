@@ -64,6 +64,7 @@ const MainPage = () => {
                             isAutoMatch: false,
                             image: resource.image_url,
                             username: resource.username,
+                            header_title: "자원 등록",
                         }
                     })}
                 />

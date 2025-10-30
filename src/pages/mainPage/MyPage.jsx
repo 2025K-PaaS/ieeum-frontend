@@ -84,7 +84,7 @@ const MyPage = () => {
                             <Resource
                                 key={index}
                                 name={resource.title}
-                                type={resource.item_name || resource.wanted_item}
+                                type={resource.item_type || resource.wanted_item}
                                 material={resource.material_type}
                                 image={resource.image_url}
                                 state={resource.status}
@@ -96,7 +96,7 @@ const MyPage = () => {
                                     count: resource.amount || resource.desired_amount,
                                     value: resource.value,
                                     material: resource.material_type,
-                                    type: resource.item_name || resource.wanted_item,
+                                    type: resource.item_type || resource.wanted_item,
                                     isAutoMatch: false,
                                     image: resource.image_url,
                                     header_title: headerTitle,

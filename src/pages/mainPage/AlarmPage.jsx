@@ -82,7 +82,7 @@ const AlarmPage = () => {
                         <Resource
                             key={index}
                             name={resource.resource.title}
-                            type={resource.resource.item_name}
+                            type={resource.resource.item_type}
                             material={resource.resource.material_type}
                             image={resource.resource.image_url}
                             state={resource.state}
