@@ -32,7 +32,7 @@ const ResourceListPage = () => {
     const handleRegistration = async () => {
         try {
             const response = await axiosInstance.get('/resources/all');
-            console.log('자원 목록', response.data);
+            console.log('자원 등록 목록', response.data);
             setResources(response.data.resources);
         } catch(error) {
             console.log('등록된 자원 목록 가져오기 실패', error.response);
@@ -43,8 +43,13 @@ const ResourceListPage = () => {
     const handleRequest = async () => {
         try {
             const response = await axiosInstance.get('/requests/all');
-            console.log('자원 목록', response.data);
-            setResources(response.data.requests);
+            console.log('자원 요청 목록', response.data);
+            
+            const filteredRequests = response.data.requests.filter(request => 
+                request.is_auto_written !== true
+            );
+            
+            setResources(filteredRequests);
         } catch(error) {
             console.log('요청된 자원 목록 가져오기 실패', error.response);
         }
@@ -94,7 +99,7 @@ const ResourceListPage = () => {
                                     header_title: headerTitle,
                                     username: resource.username,
                                     status: resource.status,
-                                owner: username===resource.username,
+                                    owner: username===resource.username,
                                 }
                             })}
                         />
