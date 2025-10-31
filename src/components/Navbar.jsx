@@ -50,7 +50,7 @@ export const Navbar = () => {
     return (
         <Wrapper>
             <PageWrapper>
-                {navPages.map((page) => {
+                {navPages.map((page, index) => {
                     let isActive;
                     if (page.activePaths) {
                         isActive = page.activePaths.some(pattern => 
@@ -60,9 +60,9 @@ export const Navbar = () => {
                         isActive = currentPath === page.path;
                     }
                     return (
-                        <Page to={page.path}>
+                        <Page to={page.path} key={index}>
                             <PageIcon src={isActive ? page.iconClicked : page.icon} alt={`${page.text}아이콘`} />
-                            <PageText isActive={isActive}>{page.text}</PageText>
+                            <PageText $isActive={isActive}>{page.text}</PageText>
                         </Page>
                     )
                 })}
@@ -112,5 +112,5 @@ const PageText = styled.p`
     font-size: 10px;
     font-family: ${({ theme }) =>
     theme.fonts.PretendardSemiBold["font-family"]};
-    color: ${({isActive, theme}) => (isActive ? theme.colors.mainColor : theme.colors.grayColor1)};
+    color: ${({$isActive, theme}) => ($isActive ? theme.colors.mainColor : theme.colors.grayColor1)};
 `

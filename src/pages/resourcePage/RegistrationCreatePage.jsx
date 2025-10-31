@@ -96,7 +96,8 @@ const RegistrationCreatePage = () => {
                     username: name,
                     header_title: "자원 등록",
                     owner: true,
-                }
+                },
+                replace: true
             })
         } catch(error) {
             console.log(error.response);

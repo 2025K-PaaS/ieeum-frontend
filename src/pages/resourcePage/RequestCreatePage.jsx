@@ -16,6 +16,7 @@ const RequestCreatePage = () => {
     const [type, setType] = useState('');
     const [material, setMaterial] = useState('');
     const [description, setDescription] = useState('');
+    const [username, setUsername] = useState('');
 
     const imageRef = useRef(null)
     const countRef = useRef(null);
@@ -41,14 +42,26 @@ const RequestCreatePage = () => {
         event.style.height = `${event.scrollHeight}px`;
     }
 
+    const handleUsername = async () => {
+        try {
+            const response = await axiosInstance.get('/auth/me');
+            console.log('사용자 닉네임 조회', response.data);
+            setUsername(response.data.username);
+        } catch(error) {
+            console.log('사용자 닉네임 조회 실패', error.response);
+        }
+    }
+
     const handleSubmit = async () => {
         try {
             const formData = new FormData();
+            formData.append('title', title);
             formData.append('item_name', title);
             formData.append('item_type', type);
             formData.append('amount', count);
             formData.append('description', description);
             formData.append('material_type', material);
+            formData.append('username', username);
             if (image) { 
                 formData.append('image', image);
             }
@@ -65,7 +78,8 @@ const RequestCreatePage = () => {
                     isAutoMatch: false,
                     image: response.data.image_url,
                     header_title: "자원 요청",
-                }
+                },
+                replace: true
             })
         } catch(error) {
             console.log('자원 요청 실패', error.response);
@@ -74,6 +88,7 @@ const RequestCreatePage = () => {
 
 
     useEffect(() => {
+        handleUsername();
         handleTextareaHeight(countRef.current);
         handleTextareaHeight(typeRef.current);
         handleTextareaHeight(materialRef.current);

@@ -1,14 +1,42 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { matchPath, useLocation, useNavigate } from 'react-router-dom';
 import Before from '../assets/icons/before.svg';
 
 export const TextHeader = ({ text, buttonText, onClick }) => {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleBack = () => {
+        const path = location.pathname;
+
+        const isDetailPage = 
+            matchPath('/resource/:id', path) ||
+            matchPath('/request/:id', path);
+
+        const isImageRegistrationPage = 
+            matchPath('/registration/camera', path) ||
+            matchPath('/registration/create', path);
+
+        if (isDetailPage) {
+            if (path.startsWith('/registration')) {
+                navigate('/registration');
+            } else if (path.startsWith('/request')) {
+                navigate('/request');
+            } else {
+                navigate(-1); 
+            }
+        } else if (isImageRegistrationPage) {
+            navigate('/registration');
+        } else {
+            navigate(-1);
+        }
+
+    }
 
     return (
         <Wrapper>
-            <BackButton onClick={() => navigate(-1)}>
+            <BackButton onClick={handleBack}>
                 <img src={Before} alt="이전 버튼 이미지" />
             </BackButton>
             <Title>{text}</Title>

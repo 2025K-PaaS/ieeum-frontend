@@ -45,7 +45,8 @@ const RegistrationCameraPage = () => {
                     image_url: response.data.image_url,
                     image: image,
                     status: response.data.status,
-                }
+                },
+                replace: true
             })
         } catch (error) {
             console.error('이미지 분석 실패', error);
