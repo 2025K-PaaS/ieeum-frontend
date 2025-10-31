@@ -25,15 +25,36 @@ const ResourceDetailPage = () => {
     const [value, setValue] = useState(state.value);
     const [description, setDescription] = useState(state.description);
     const [image, setImage] = useState(state.image);
-    const [name, setName] = useState(state.name);
-    const [address, setAddress] = useState(state.address);
-    const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
+    const [name, setName] = useState(state.name || '');
+    const [address, setAddress] = useState(state.address || '');
+    const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber || '');
     const [owner, setOwner] = useState(state.owner);
     const [wantedAmount, setWantedAmount] = useState(1);
     const [headerTitle, setHeaderTitle] = useState(state.header_title);
     const [matchedItem, setMatchedItem] = useState(state.matched_items?.length > 0 ? state.matched_items[0] : null);
     console.log('matchedItem', matchedItem);
     console.log(name, state.owner);
+    console.log(name, address, phoneNumber)
+
+    const handleUserInfo = async () => {
+        try {
+            const response = await axiosInstance.get('/auth/me');
+            console.log('사용자 정보 조회', response.data.name);
+            setName(response.data.name || '');
+            setAddress(response.data.address || '');
+            setPhoneNumber(response.data.phone || '');
+        } catch(error) {
+            console.log('사용자 정보 조회 실패', error.response);
+        }
+    }
+
+    useEffect(() => {
+        if (!name || !address || !phoneNumber) {
+            console.log('배송 정보 부족 감지, 내 정보 조회 시작');
+            handleUserInfo();
+        }
+    }, [name, address, phoneNumber]);
+
 
     const handlePlus = () => {
         if (wantedAmount < count)
@@ -97,6 +118,11 @@ const ResourceDetailPage = () => {
     }
 
     const handleMatching = async () => {
+        if (!name || !address || !phoneNumber) {
+            alert('매칭 신청을 위해 이름, 주소, 전화번호 정보가 모두 필요합니다. 정보를 입력해주세요.');
+            return;
+        }
+
         try {
             const response = await axiosInstance.post('/notifications/iwant', {
                 resource_id,

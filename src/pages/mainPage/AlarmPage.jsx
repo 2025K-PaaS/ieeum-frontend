@@ -37,8 +37,36 @@ const AlarmPage = () => {
         }
     }
 
+    const handleMyInfo = async () => {
+        try {
+            const response = await axiosInstance.get('/auth/me');
+            console.log('내 정보 조회 성공');
+            return {
+                name: response.data.name || '',
+                address: response.data.address || '',
+                phoneNumber: response.data.phone || '',
+            }
+        } catch(error) {
+            console.log('내 정보 조회 실패', error.response);
+            return { name: '', address: '', phoneNumber: '' };
+        }
+    }
+
     const handleResourceInfo = async (resource) => {
-        const { address, phoneNumber } = await handlerequestWriter(resource.request.username);
+        const writerInfo = await handlerequestWriter(resource.request.username);
+        let name = resource.request.username;
+        let address = writerInfo.address;
+        let phoneNumber = writerInfo.phoneNumber;
+
+        if (!address || !phoneNumber) {
+            const myInfo = await handleMyInfo();
+            if (!name) {
+                name = myInfo.name;
+            }
+            address = address || myInfo.address;
+            phoneNumber = phoneNumber || myInfo.phoneNumber;
+        }
+
         const isButtonShow = 
             resource.role==="supplier" && resource.state==="proposed" ? true :
             resource.role==="requester" && resource.state==="proposed" ? false :
@@ -57,7 +85,7 @@ const AlarmPage = () => {
                 image: resource.resource.image_url,
                 resource_id: resource.resource.resource_id,
                 request_id: resource.request.request_id,
-                name: resource.request.username,
+                name: name,
                 address: address,
                 phoneNumber: phoneNumber,
             }
@@ -75,7 +103,7 @@ const AlarmPage = () => {
                 {matchingData.map((resource, index) => {
                     console.log('역할', resource.role);
 
-                    if (resource.state!=="proposed" || resource.state!=="matched") {
+                    if (resource.state === "proposed" || resource.state === "matched") {
                         return(
                             <Resource
                                 key={index}
@@ -89,6 +117,7 @@ const AlarmPage = () => {
                             />
                         )
                     }
+                    return null;
                 })}
             </S.ResourceWrapper>
         </>
