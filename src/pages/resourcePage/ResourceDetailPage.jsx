@@ -16,7 +16,6 @@ const ResourceDetailPage = () => {
     console.log('state', state);
     const { resource_id } = useParams();
 
-
     const [isOpen, setIsOpen] = useState(false);
     const [isAutoMatch, setIsAutoMatch] = useState(state.isAutoMatch);
     const [title, setTitle] = useState(state.title);
@@ -27,8 +26,8 @@ const ResourceDetailPage = () => {
     const [description, setDescription] = useState(state.description);
     const [image, setImage] = useState(state.image);
     const [name, setName] = useState(state.name);
-    const [address, setAddress] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [address, setAddress] = useState(state.address);
+    const [phoneNumber, setPhoneNumber] = useState(state.phoneNumber);
     const [owner, setOwner] = useState(state.owner);
     const [wantedAmount, setWantedAmount] = useState(1);
     const [headerTitle, setHeaderTitle] = useState(state.header_title);
@@ -97,18 +96,6 @@ const ResourceDetailPage = () => {
         }
     }
 
-    const handleUserInfo = async () => {
-        try {
-            const response = await axiosInstance.get('/auth/me');
-            console.log('사용자 정보 조회', response.data.name);
-            setName(response.data.name);
-            setAddress(response.data.address);
-            setPhoneNumber(response.data.phone);
-        } catch(error) {
-            console.log('사용자 정보 조회 실패', error.response);
-        }
-    }
-
     const handleMatching = async () => {
         try {
             const response = await axiosInstance.post('/notifications/iwant', {
@@ -135,10 +122,6 @@ const ResourceDetailPage = () => {
             console.log('수동 매칭 신청 실패', error.response);
         }
     }
-
-    useEffect(() => {
-        handleUserInfo();
-    }, [])
 
     return (
         <>

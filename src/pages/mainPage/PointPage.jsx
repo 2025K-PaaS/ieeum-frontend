@@ -44,12 +44,8 @@ const PointPage = () => {
                             <S.Name>{point.item_title}</S.Name>
                             <S.DescWrapper>
                                 <S.CountWrapper>
-                                {point.ref_type==="resource" && (
-                                    <>
-                                        <S.CountTitle>수량 |</S.CountTitle>
-                                        <S.Count>{point.item_amount}</S.Count>
-                                    </>
-                                )}
+                                    <S.CountTitle>수량 |</S.CountTitle>
+                                    <S.Count>{point.item_amount}</S.Count>
                                 </S.CountWrapper>
                                 <S.BadgeWrapper>
                                     <S.BadgeText>{point.delta.toLocaleString()} P</S.BadgeText>

@@ -27,7 +27,7 @@ const RegistrationCreatePage = () => {
     const [value, setValue] = useState();
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(state.image);
-    const [name, setName] = useState('');
+    const [name, setName] = useState(''); 
     const [address, setAddress] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
 
@@ -53,6 +53,25 @@ const RegistrationCreatePage = () => {
         event.style.height = `${event.scrollHeight}px`;
     }
 
+    const handlerequestWriter = async (username) => {
+        try {
+            const response = await axiosInstance.get(`/requests/${username}`);
+            console.log('요청 등록자 정보 조회 성공', response.data);
+            return {
+                username: response.data.username,
+                address: response.data.address,
+                phoneNumber: response.data.phone,
+            };
+        } catch(error) {
+            console.log('요청 등록자 조회 실패', error.response);
+            return {
+                username: null,
+                address: null,
+                phoneNumber: null,
+            };
+        }
+    }
+
     const handleSubmit = async () => {
         if (!(state.analysis_id && title && description && count && value && state.material_type)) {
             alert('자원 정보를 모두 입력해주세요');
@@ -64,6 +83,7 @@ const RegistrationCreatePage = () => {
             console.log('state.material_type', state.material_type);
             return ;
         }
+        
         try {
             const response = await axiosInstance.post('/resources', {
                 analysis_id: state.analysis_id,
@@ -74,10 +94,30 @@ const RegistrationCreatePage = () => {
                 material_type: state.material_type,
             });
             console.log('자원 등록 성공', response.data);
+
             let isAutoMatch = false;
-            if (response.data.matched_requests.length > 0) {
+            let matchedUser = { name: '', address: '', phoneNumber: '' };
+            let finalName = name;
+            let finalAddress = address;
+            let finalPhoneNumber = phoneNumber;
+
+            if (response.data.matched_requests && response.data.matched_requests.length > 0) {
                 isAutoMatch = true;
+                const firstMatchedRequest = response.data.matched_requests[0];
+                const matchedUsername = firstMatchedRequest.username;
+                console.log('자동 매칭된 요청자 username?????', matchedUsername);
+                
+                const writerInfo = await handlerequestWriter(matchedUsername);
+                
+                matchedUser.name = writerInfo.username || ''; 
+                matchedUser.address = writerInfo.address || '';
+                matchedUser.phoneNumber = writerInfo.phoneNumber || '';
+
+                finalName = matchedUser.name;
+                finalAddress = matchedUser.address;
+                finalPhoneNumber = matchedUser.phoneNumber;
             }
+            
             navigate(`/registration/${response.data.resource_id}`, {
                 state: {
                     resource_id: response.data.resource_id,
@@ -86,14 +126,14 @@ const RegistrationCreatePage = () => {
                     count,
                     value,
                     material: state.material_type,
-                    name,
-                    address,
-                    phoneNumber,
+                    name: finalName, 
+                    address: finalAddress, 
+                    phoneNumber: finalPhoneNumber,
                     isAutoMatch,
                     image,
                     type,
                     matched_items: response.data.matched_requests,
-                    username: name,
+                    username: finalName,
                     header_title: "자원 등록",
                     owner: true,
                 },
@@ -105,20 +145,7 @@ const RegistrationCreatePage = () => {
         }
     }
 
-    const handleMyInfo = async () => {
-        try {
-            const response = await axiosInstance.get('/auth/me');
-            console.log('내 정보 조회', response.data);
-            setName(response.data.nickname);
-            setPhoneNumber(response.data.phone);
-            setAddress(response.data.address);
-        } catch(error) {
-            console.log('내 정보 조회 실패, error.response');
-        }
-    }
-
     useEffect(() => {
-        handleMyInfo();
         handleTextareaHeight(typeRef.current);
         handleTextareaHeight(materialRef.current);
         handleTextareaHeight(valueRef.current);
