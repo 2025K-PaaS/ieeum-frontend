@@ -41,7 +41,8 @@ const AlarmPage = () => {
         const { address, phoneNumber } = await handlerequestWriter(resource.request.username);
         const isButtonShow = 
             resource.role==="supplier" && resource.state==="proposed" ? true :
-            resource.role==="requester" && resource.state==="proposed" ? false : false;
+            resource.role==="requester" && resource.state==="proposed" ? false :
+            resource.state==="matched" ? false : false;
             
         navigate('/matchingapplication', {
             state: { 
@@ -72,23 +73,22 @@ const AlarmPage = () => {
             <TextHeader text="알림" />
             <S.ResourceWrapper>
                 {matchingData.map((resource, index) => {
-                console.log('역할', resource.role);
+                    console.log('역할', resource.role);
 
-                    if (resource.state!=="proposed") {
-                        return null;
+                    if (resource.state!=="proposed" || resource.state!=="matched") {
+                        return(
+                            <Resource
+                                key={index}
+                                name={resource.resource.title}
+                                type={resource.resource.item_type}
+                                material={resource.resource.material_type}
+                                image={resource.resource.image_url}
+                                state={resource.state}
+                                role={resource.role}
+                                onClick={() => handleResourceInfo(resource)}
+                            />
+                        )
                     }
-
-                    return(
-                        <Resource
-                            key={index}
-                            name={resource.resource.title}
-                            type={resource.resource.item_type}
-                            material={resource.resource.material_type}
-                            image={resource.resource.image_url}
-                            state={resource.state}
-                            role={resource.role}
-                            onClick={() => handleResourceInfo(resource)}
-                        />)
                 })}
             </S.ResourceWrapper>
         </>
